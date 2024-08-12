@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>广告投放平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="renderer" content="webkit" />
+  <meta name="force-rendering" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <script type="text/javascript">
+    function addMeta(name, content) {
+      var meta = document.createElement('meta');
+      meta.content = content;
+      meta.name = name;
+      document.getElementsByTagName('head')[0].appendChild(meta);
+    }
+
+    var vw = window.innerWidth;
+    if (vw <= 1400) {
+      var scale = Math.floor((vw / 1400) * 100) / 100 - 0.01;
+      var s = document.getElementsByTagName('head')[0];
+      for (var i = 0; i < s.children.length; i++) {
+        var o = s.children[i];
+        if (o.getAttribute('name') === 'viewport') {
+          s.removeChild(o);
+          break;
+        }
+      }
+      addMeta('viewport', 'width=device-width, initial-scale=' + scale);
+    } else {
+      addMeta('viewport', 'width=device-width, initial-scale=1.0');
+    }
+  </script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+<style>
+  #app {
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #eee;
+  }
+</style>
+
+</html>

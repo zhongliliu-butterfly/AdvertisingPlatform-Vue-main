@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3889130 */
+  src: url('iconfont.woff2?t=1679812880495') format('woff2'),
+       url('iconfont.woff?t=1679812880495') format('woff'),
+       url('iconfont.ttf?t=1679812880495') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-collegefenge:before {
+  content: "\e62b";
+}
+
+.icon-collegesearch:before {
+  content: "\e651";
+}
+
+.icon-collegeai:before {
+  content: "\e600";
+}
+
+.icon-collegepdf:before {
+  content: "\e64c";
+}
+
+.icon-collegearrow-double-left:before {
+  content: "\e665";
+}
+
+.icon-collegearrow-double-right:before {
+  content: "\e666";
+}
+
+.icon-collegefanhuijian:before {
+  content: "\e60f";
+}
+
+.icon-collegeqianjinjian:before {
+  content: "\e606";
+}
+
+.icon-collegeaixin:before {
+  content: "\e8ab";
+}
+
+.icon-collegedianzan:before {
+  content: "\e8b0";
+}
+
+.icon-collegeyanjing:before {
+  content: "\e8c5";
+}
+
+.icon-collegeaixin1:before {
+  content: "\e8ca";
+}
+
+.icon-collegedianzan1:before {
+  content: "\e8c7";
+}
+
+.icon-collegeyanjing1:before {
+  content: "\e8c9";
+}
+

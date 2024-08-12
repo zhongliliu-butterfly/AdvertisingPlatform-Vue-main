@@ -1,0 +1,96 @@
+@import "style";
+
+
+.bg_img {
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.register_block {
+    position: fixed;
+    width: 40%;
+    height: 100%;
+    background-color: #fff;
+    right: 0;
+    top: 0;
+
+    .register_box {
+        margin: 20vh auto;
+        width: 70%;
+
+        .register_title {
+            color: @color-info;
+            font-size:@font-size-head;
+            font-weight:@font-weight-large;
+            line-height: @line-height-head;
+            text-align: left;
+        }
+
+        // 隐藏 *
+        :deep(.t-form__label--right) {
+            display: none;
+        }
+
+        :deep(.t-form__controls) {
+            margin-left: 0px !important;
+        }
+
+        :deep(.t-input) {
+            background: #F2F4F7;
+            height: 40px;
+            border: none;
+
+        }
+        :deep(.t-input-group){
+            width: 100%;
+        }
+        .t-form-item__sms_code{
+            :deep(.t-form__controls-content){
+                justify-content: space-between;
+            }
+
+        }
+        .code_button{
+            height: 40px;
+            background: #237FFA;
+            border: none;
+            border-radius: 4px;
+        }
+        .code_button:disabled{
+            background: #237FFA;
+            opacity: 0.5;
+
+        }
+        .login_button {
+            letter-spacing: 10px;
+        }
+
+    }
+
+
+}
+.forgetpwd{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+     
+}
+
+ // 蓝底白字按钮
+ .button-primary {
+    height: 40px;
+    background: @color-primary;
+    font-size: @font-size-large;
+    font-family: @font-family;
+    color: @back-info2;
+    border: none;
+    border-radius: @radius-medium;
+}
+
+ // 蓝色可点击文字
+ .hand_detail {
+    color: @color-primary;
+    cursor: pointer;
+    margin-right: 10px;
+}

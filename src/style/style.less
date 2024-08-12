@@ -1,0 +1,128 @@
+// 定义颜色变量
+@color-success: #14CA64;
+@color-error: #FF5959;
+@color-warning: #FAB007;
+@color-primary: #237FFA;
+@color-info: #1F2733;
+@color-info2: #929AA6;
+
+// 定义背景色
+@back-success: #B3F2C6;
+@back-error: #FFD1C9;
+@back-warning: #FEF2B4;
+@back-primary: #E2F3FE;
+@back-primary2: #BDE2FF;
+@back-info: #DFE2E8;
+@back-info2: #F2F4F7;
+@back-info3: #F1F2F4;
+
+// 定义字体大小和家族
+@font-family: 'PingFang SC', 'Microsoft YaHei', 'Arial', sans-serif;
+@font-size-small: 12px;
+@font-size-medium: 14px;
+@font-size-large: 16px;
+@font-size-title: 18px;
+@font-size-head: 40px;
+
+@font-weight-small:400;
+@font-weight-medium:600;
+@font-weight-large:700;
+
+// 定义行高
+@line-height-small:20px;
+@line-height-medium:32px;
+@line-height-large:40px;
+@line-height-head:44px;
+
+// 定义圆角
+@radius-small: 2px;
+@radius-medium: 4px;
+@radius-large: 8px;
+
+// 使用变量定义全局样式类
+.text-success {
+  color: @color-success;
+}
+
+.text-error {
+  color: @color-error;
+}
+
+.text-warning {
+  color: @color-warning;
+}
+
+.text-primary {
+  color: @color-primary;
+}
+
+.text-info {
+  color: @color-info;
+}
+
+.text-info2 {
+  color: @color-info2;
+}
+
+.bg-success {
+  background-color: @back-success;
+}
+
+.bg-error {
+  background-color: @back-error;
+}
+
+.bg-warning {
+  background-color: @back-warning;
+}
+
+.bg-primary {
+  background-color: @back-primary;
+}
+
+.bg-info {
+  background-color: @back-info;
+}
+
+.bg-info2 {
+  background-color: @back-info2;
+}
+
+// 字体样式类
+.font-small {
+  font-size: @font-size-small;
+  font-family: @font-family;
+}
+
+.font-medium {
+  font-size: @font-size-medium;
+  font-family: @font-family;
+}
+
+.font-large {
+  font-size: @font-size-large;
+  font-family: @font-family;
+}
+
+.font-title {
+  font-size: @font-size-title;
+  font-family: @font-family;
+}
+
+.font-head {
+  font-size: @font-size-head;
+  font-family: @font-family;
+}
+
+// 圆角样式类
+.radius-small {
+  border-radius: @radius-small;
+}
+
+.radius-medium {
+  border-radius: @radius-medium;
+}
+
+.radius-large {
+  border-radius: @radius-large;
+}

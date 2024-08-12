@@ -1,0 +1,295 @@
+ @import "style";
+
+ body {
+     padding-right: 0px !important;
+     font-family: "Microsoft YaHei", "微软雅黑", "PingFang SC";
+     color: #1F2733;
+ }
+
+ :root {
+     margin: 0;
+     padding: 0;
+ }
+
+
+ a img,
+ img {
+     -ms-interpolation-mode: bicubic;
+ }
+
+ img {
+     border: 0;
+     vertical-align: middle;
+
+     image-rendering: crisp-edges;
+     image-rendering: -moz-crisp-edges;
+     image-rendering: -o-crisp-edges;
+     image-rendering: -webkit-optimize-contrast;
+
+     -ms-interpolation-mode: nearest-neighbor;
+
+     user-select: none;
+     -webkit-user-select: none;
+
+     -webkit-user-drag: none;
+ }
+
+
+ // 蓝色可点击文字
+ .hand_detail {
+    color: @color-primary;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.blue_btn{
+    background: none !important;
+    border: none;
+    color: @color-primary;
+}
+
+ // 蓝底白字按钮
+ .button-primary {
+     background: @color-primary;
+     font-size: @font-size-medium;
+     font-family: @font-family;
+     color: @back-info2;
+     border: none;
+     border-radius: @radius-medium;
+ }
+
+ // 蓝底蓝字tip
+ .tip-primary {
+     background-color: @back-primary;
+     color: @color-primary;
+     border-radius: @radius-medium ;
+     text-align: center;
+     padding: 2px 8px;
+ }
+
+
+ // table组合列表头样式
+
+ :deep(.t-table) {
+
+     .t-table__th-cell-inner,
+     .t-table__content {
+       
+         color: @color-info;
+     }
+
+     .t-table__header tr {
+         background: @back-info2;
+
+     }
+
+
+
+
+ }
+.table-name{
+    .table-title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+   
+        .tooltip-text {
+            width: 100px;
+            /* 定义容器宽度 */
+            white-space: nowrap;
+            /* 防止文本换行 */
+            overflow: hidden;
+            /* 隐藏溢出部分 */
+            text-overflow: ellipsis;
+            /* 显示省略符号表示文本被截断 */
+   
+        }
+   
+        .tip-primary {
+            min-width: 80px;
+        }
+   
+    }
+    p{
+        margin-bottom: 0 !important;
+        text-align: left !important;
+    }
+}
+
+ // table组合带img的列表头样式
+ .table-good {
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+
+     img {
+         cursor: pointer;
+         width: 40px;
+         margin-right: 10px;
+     }
+
+     p {
+         margin-bottom: 0;
+         text-align: left;
+     }
+
+     .file_copy {
+         color: #237FFA;
+         cursor: pointer;
+     }
+     .text-tip{
+        text-align: left;
+     }
+ }
+
+ // 表格分页按钮
+ :deep(.t-pagination__number.t-is-current) {
+     background: @color-primary;
+     color: #fff;
+     border: none;
+ }
+
+ // 核心关注block下的tab切换，radio切换
+ .card-content {
+     margin: 20px;
+
+     .card-tab {
+         :deep(.t-tabs__nav-item.t-is-active) {
+             color: @color-primary;
+         }
+
+         :deep(.t-tabs__bar) {
+             background: @color-primary;
+
+         }
+     }
+
+     .radio-primary {
+         border-radius: 4px;
+         background: @back-info2;
+
+         :deep(.t-radio-button) {
+             color: @color-primary;
+         }
+
+         :deep(.t-radio-button:hover) {
+             color: @color-primary;
+         }
+
+         :deep(.t-is-checked) {
+             background: @back-primary !important;
+             color: @color-primary !important;
+
+         }
+
+     }
+
+ }
+
+ // 表格上方的标题
+ .table_title {
+     font-family: PingFang SC;
+     font-weight: 500;
+     line-height: 22px;
+     text-align: left;
+     color: @color-info;
+     margin-bottom: 20px;
+     font-size: 16px;
+ }
+ // 策略明细搜索筛选
+ .search-list{
+    display: flex; /* 将容器设置为flex布局 */
+    flex-wrap: wrap; /* 允许flex项在必要时换行 */
+    gap: 10px; /* 设置flex项之间的间隔 */
+    div{
+        min-width: 200px;
+        margin:0 10px 4px 0 ;
+    }
+    .applybtn {
+        background: #E2F3FE;
+        border: none;
+        border-radius: 4px;
+        color: #237FFA;
+        margin:0 10px 4px 0 ;
+
+    }
+
+    .search_icon {
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+    }
+ }
+
+ .main_content_one {
+    margin: 20px;
+}
+
+ .page {
+     width: 100%;
+     min-height: 800px;
+     display: flex;
+     justify-content: space-between;
+
+     .main_content {
+         flex: 1;
+         margin: 10px;
+         padding: 20px;
+         // background-color: #fff;
+         height: 100%;
+
+         .main_second_block {
+             margin: 20px 0;
+         }
+     }
+ }
+
+
+
+
+
+
+
+ // 数据上涨下降颜色变化
+ .text-success {
+     color: #00c9a7 !important;
+ }
+
+ .text-danger {
+     color: #ed4c78 !important;
+ }
+
+ // end===
+
+
+
+ // table内样式 
+ // 1 商品样式
+ // 2 查看详情样式
+ // 3 分页功能屏蔽选择一页展示多少条
+
+ 
+
+
+
+ :deep(.t-pagination__select) {
+     display: none;
+ }
+
+ //end==
+
+ .line_icon {
+     width: 16px;
+     height: 16px;
+ }
+
+ .text-blue {
+     color: @color-primary
+ }
+
+ .text-red {
+     color: red;
+     cursor: pointer;
+ }

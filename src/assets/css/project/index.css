@@ -1,0 +1,41 @@
+#js-daterangepicker-predefined {
+    margin-left: 0.5rem;
+}
+
+.js-chart {
+    display: block;
+    box-sizing: border-box;
+    height: 48px;
+    width: 164px;
+}
+
+.nav-segment .nav-link.active {
+    color: #377dff !important;
+}
+.person-select,.store-select{
+    width: 16rem !important;
+}
+ 
+#adTab1 .nav-item ,#adTab2 .nav-item,#storeTab1 .nav-item ,#storeTab2 .nav-item  {
+    padding: 0.5rem 0.875rem !important;
+    margin-bottom: 0.25rem;
+}
+
+#adTab1 .nav-item.active ,#adTab2 .nav-item.active,#storeTab1 .nav-item.active ,#storeTab2 .nav-item.active{
+    cursor: pointer;
+
+    .nav-link {
+        cursor: pointer;
+
+        background-color: rgba(189, 197, 209, 0.2) !important;
+
+    }
+}
+
+#addatatable,#storedatatable{
+    width: 99% !important;
+}
+
+/* .store-tab-content #storedatatable_length,.store-tab-content #storedatatable_filter,.store-tab-content #storedatatable_info{
+    display: none;
+} */
