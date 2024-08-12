@@ -7,6 +7,28 @@ const defaultRouterList: Array<RouteRecordRaw> = [
         path: '/page',
         name: 'page',
         component: () => import('@/layouts/page.vue'),
+        children: [
+            {
+                path: 'products',
+                name: 'products',
+                component: () => import('@/pages/products/index.vue'),
+            },
+            {
+                path: 'statistic',
+                name: 'statistic',
+                component: () => import('@/pages/statistic/index.vue'),
+            },
+            {
+                path: 'industryAnalysis',
+                name: 'industryAnalysis',
+                component: () => import('@/pages/industryAnalysis/index.vue'),
+            },
+            {
+                path: 'custom',
+                name: 'custom',
+                component: () => import('@/pages/custom/index.vue'),
+            }
+        ]
     },
     {
         path: '/',
@@ -108,7 +130,7 @@ Object.keys(pages).forEach((path) => {
 export const allRoutes = [...defaultRouterList, ...asyncRouterList];
 
 const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHashHistory('/'),
     routes: allRoutes,
     scrollBehavior() {
         return {

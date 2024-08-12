@@ -3,96 +3,18 @@
         expand-mutex @change="changeHandler" :collapsed="collapsed">
         <template #logo>
             <img width="28" height="28" :src="WebApp.getImage('common/logo.png')" alt="logo" />
-            <h3 class="logo-title" v-if="!collapsed">{{ t('projectName') }}</h3>
+            <div class="logo-info">
+                <h3 class="logo-title" v-if="!collapsed">{{ t('projectName') }}</h3>
+                <span>{{ t('projectSubName') }}</span>
+            </div>
         </template>
-        <t-menu-item :value="t('menu1')" @click="WebApp.toPage('/index/index?title='+t('menu1'))">
+        <t-menu-item v-for="item in tabs" :value="item.value" :key="item.value" @click="router.replace(item.url)">
             <template #icon>
-                <img class="iconImg" width="20" height="20"
-                    :src="WebApp.getImage(checkedValue === t('menu1') ? 'menu/home_active.png' : 'menu/home.png')" />
+                <img class="iconImg" width="auto" height="14"
+                    :src="WebApp.getImage(`${curTab === item.value ? item.icon : item.icon+'_gray'}.png`)" />
             </template>
-            {{ t('menu1') }}
+            {{ item.label }}
         </t-menu-item>
-        <t-menu-item :value="t('menu2')" @click="WebApp.toPage('/intelligentDiagnosis/index?title='+t('menu2'))">
-            <template #icon>
-                <img class="iconImg" width="20" height="20"
-                    :src="WebApp.getImage(checkedValue === t('menu2') ? 'menu/webpage_active.png' : 'menu/webpage.png')" />
-            </template>
-            {{ t('menu2') }}
-        </t-menu-item>
-        <t-submenu value="3">
-            
-            <template #icon>
-                <img class="iconImg" width="20" height="20"
-                    :src="WebApp.getImage(menuKeys.includes(checkedValue)? 'menu/filter_active.png' : 'menu/filter.png')" />
-            </template>
-            <template #title>
-                <span>{{ t('menu3') }}</span>
-            </template>
-            <t-submenu :value="t('menu3_1')" :title="t('menu3_1')">
-                <t-menu-item :value="t('menu3_1_1')"  @click="WebApp.toPage('/reduceCost/negativeWord?title='+t('menu3_1_1') )"> {{ t('menu3_1_1') }}
-                </t-menu-item>
-                <t-menu-item :value="t('menu3_1_2')"  @click="WebApp.toPage('/reduceCost/negativeWord?title='+t('menu3_1_2') )"> {{ t('menu3_1_2') }}
-                </t-menu-item>
-                <t-menu-item :value="t('menu3_1_3')" @click="WebApp.toPage('/reduceCost/negativeWord?title='+t('menu3_1_3') )"> {{ t('menu3_1_3') }}
-                </t-menu-item>
-                <t-menu-item :value="t('menu3_1_4')" @click="WebApp.toPage('/reduceCost/negativeWord?title='+t('menu3_1_4') )"> {{ t('menu3_1_4') }}
-                </t-menu-item>
-                <t-menu-item :value="t('menu3_1_5')" @click="WebApp.toPage('/reduceCost/negativeWord?title='+t('menu3_1_5') )"> {{ t('menu3_1_5') }}
-                </t-menu-item>
-                <t-menu-item :value="t('menu3_1_6')" @click="WebApp.toPage('/reduceCost/negativeWord?title='+t('menu3_1_6') )"> {{ t('menu3_1_6') }}
-                </t-menu-item>
-            </t-submenu>
-            <t-submenu value="3-2" :title="t('menu3_2')">
-
-                <t-menu-item :value="t('menu3_2_1')" @click="WebApp.toPage('/reduceCost/negativeWord?title='+t('menu3_2_1') )">  {{ t('menu3_2_1') }}
-                </t-menu-item>
-                <t-menu-item :value="t('menu3_2_2')"  @click="WebApp.toPage('/reduceCost/negativeWord?title='+t('menu3_2_2') )">  {{ t('menu3_2_2') }}
-                </t-menu-item>
-                <t-menu-item :value="t('menu3_2_3')"   @click="WebApp.toPage('/reduceCost/negativeWord?title='+t('menu3_2_3') )"> {{ t('menu3_2_3') }}
-                </t-menu-item>
-                <t-menu-item :value="t('menu3_2_4')" @click="WebApp.toPage('/reduceCost/negativeWord?title='+t('menu3_2_4') )">{{ t('menu3_2_4') }}
-                </t-menu-item>
-                <t-menu-item :value="t('menu3_2_5')"  @click="WebApp.toPage('/reduceCost/negativeWord?title='+t('menu3_2_5') )">  {{ t('menu3_2_5') }}
-                </t-menu-item>
-            </t-submenu>
-            <t-menu-item :value="t('menu3_3')" @click="WebApp.toPage('/reduceCost/negativeWord?title='+t('menu3_3') )"> {{ t('menu3_3') }}？
-            </t-menu-item>
-            <t-menu-item :value="t('menu3_4')" @click="WebApp.toPage('/reduceCost/negativeWord?title='+t('menu3_4') )">  {{ t('menu3_4') }}
-            </t-menu-item>
-        </t-submenu>
-        <t-menu-item :value="t('menu4')">
-            <template #icon>
-                <img class="iconImg" width="20" height="20"
-                    :src="WebApp.getImage(checkedValue === t('menu4') ? 'menu/shield_active.png' : 'menu/shield.png')" />
-            </template>
-            {{ t('menu4') }}
-        </t-menu-item>
-        <t-submenu :value="t('menu5')" v-if="accountData&&accountData.role==='root'">
-            <template #icon>
-                <img class="iconImg" width="20" height="20"
-                    :src="WebApp.getImage(checkedValue === t('menu5_1')||checkedValue === t('menu5_2') ? 'menu/bookmark_active.png' : 'menu/bookmark.png')" />
-            </template>
-            <template #title>
-                <span>{{ t('menu5') }}</span>
-            </template>
-            <t-menu-item :value="t('menu5_1')" @click="WebApp.toPage('/strategyManage/addStrategy?title='+t('menu5_1'))">  {{ t('menu5_1') }}
-            </t-menu-item>
-            <t-menu-item :value="t('menu5_2')" @click="WebApp.toPage('/strategyManage/strategyMan?title='+t('menu5_2'))"> {{ t('menu5_2') }}
-            </t-menu-item>
-        </t-submenu>
-        <t-submenu :value="t('menu6')" v-if="accountData&&accountData.role==='root'">
-            <template #icon>
-                <img class="iconImg" width="20" height="20"
-                    :src="WebApp.getImage(checkedValue=== t('menu6_1')||checkedValue=== t('menu6_2') ? 'menu/setting_active.png' : 'menu/setting.png')" />
-            </template>
-            <template #title>
-                <span>{{ t('menu6') }}</span>
-            </template>
-            <t-menu-item :value="t('menu6_1')" @click="WebApp.toPage('/projectSetting/authorization?title='+t('menu6_1'))"> {{ t('menu6_1') }}
-            </t-menu-item>
-            <t-menu-item :value="t('menu6_2')" @click="WebApp.toPage('/projectSetting/organization?title='+t('menu6_2'))"> {{ t('menu6_2') }}
-            </t-menu-item>
-        </t-submenu>
         <template #operations>
             <t-button variant="text" shape="square" @click="changeCollapsed">
                 <template #icon><t-icon name="view-list" /></template>
@@ -106,18 +28,42 @@ import { MessagePlugin, MenuProps, ButtonProps } from 'tdesign-vue-next';
 import { onMounted, onUnmounted, reactive, ref, watch } from 'vue';
 import * as WebApp from '@/utils/webapp';
 import { store, useRateStore } from '@/store';
+import { useRouter, useRoute, onBeforeRouteUpdate } from 'vue-router';
 import { accountInfo } from '@/types/model.home';
 import { useI18n } from 'vue-i18n'
 const { t, locale } = useI18n();
+const router = useRouter(), route = useRoute();
 const props = withDefaults(
     defineProps<{
-        checkedValue?: any;
+        // checkedValue?: any;
         checkedExpanded?: Array<any>;
     }>(),
     {},
 );
+const curTab = ref(0);
+const tabs = ref([{
+	icon: 'menu/prds',
+	value: 0,
+	label: '我的商品',
+	url: '/page/products'
+},{
+	icon: 'menu/msg',
+	value: 1,
+	label: '原声洞察',
+	url: '/page/statistic'
+},{
+	icon: 'menu/calc',
+	value: 2,
+	label: '行业分析',
+	url: '/page/industryAnalysis'
+},{
+	icon: 'menu/custom',
+	value: 3,
+	label: '消费者说',
+	url: '/page/custom'
+}])
 const accountData: accountInfo = JSON.parse(localStorage.getItem('account')).account
-const checkedValue:any=decodeURI(WebApp.getQueryFromUrl('title'))
+const checkedValue:any = ref('') // decodeURI(WebApp.getQueryFromUrl('title'))
 const menuKeys = [
     t('menu3_1_1'),
     t('menu3_1_2'),
@@ -137,6 +83,7 @@ const collapsed = ref(false)
 const expanded = ref<MenuProps['expanded']>([]);
 const changeHandler: MenuProps['onChange'] = (active) => {
     console.log('change==', active, expanded.value);
+		curTab.value = active;
     sessionStorage.setItem('expanded',JSON.stringify(expanded.value))
 };
 function executeTask() {
@@ -161,10 +108,31 @@ onMounted(() => {
    if(a&&a.length>0){
     expanded.value=a
    }
+    if(route.path.includes('/products')) {
+        curTab.value = 0
+    } else if(route.path.includes('/statistic')) {
+        curTab.value = 1
+    } else if(route.path.includes('/industryAnalysis')) {
+        curTab.value = 2
+    } else if(route.path.includes('/custom')) {
+        curTab.value = 3
+    }
+    checkedValue.value = tabs.value[curTab.value].label;
 });
 onUnmounted(() => {
     clearTimeout(timeoutId); // 清除定时器，防止内存泄漏
 });
+
+onBeforeRouteUpdate((to) => {
+    if(to.path.includes('/products')) {
+        curTab.value = 0
+    } else if(to.path.includes('/statistic')) {
+        curTab.value = 1
+    } else if(to.path.includes('/industryAnalysis')) {
+        curTab.value = 2
+    }
+    checkedValue.value = tabs.value[curTab.value].label;
+})
  
 const changeCollapsed = () => {
     collapsed.value = !collapsed.value;
@@ -189,35 +157,91 @@ function calculateDelay() {
 @import url('@/style/style.less');
 
 .top-menu-temp {
+    height: 100%;
     min-height: 800px;
-    background: @back-info2;
+    background: @back-bg;
+}
+
+:deep(.t-menu__logo) {
+	height: 70px !important;
+  border-bottom: none !important;
+}
+
+.logo-info {
+    text-align: left;
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    span {
+        font-size: 8px;
+        line-height: 14px;
+        color: #CCCCCC;
+    }
 }
 
 .logo-title {
-    font-size: 18px;
+    font-size: 20px;
+    line-height: 22px;
     font-weight: @font-weight-medium;
-    line-height: @line-height-medium;
+    // line-height: @line-height-medium;
     text-align: left;
     color: @color-info;
-    margin: auto 20px;
+    // margin: auto 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin: 0px;
+}
+:deep(.t-menu) {
+	padding: 25px 0 0;
 }
 
 :deep(.t-menu__content) {
-    font-size: 16px;
-    color: @color-info;
-
+	font-size: 14px;
+	color: #999999;
 }
 
 :deep(.t-menu__item.t-is-active) {
-    background: @back-info2;
+    background: #F7F7FA !important;
+		position: relative;
+
+		&::before {
+			content: '';
+			width: 4px;
+			height: 100%;
+			background: #003469;
+			// filter: blur(4px);
+			position: absolute;
+			right: 0px;
+			top: 0;
+		}
+
+		&::after {
+			content: '';
+			width: 4px;
+			height: 100%;
+			background: #003469;
+			filter: blur(8px);
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
 
     .t-menu__content {
-        color: @color-primary !important;
-
+      color: #111111 !important;// @color-primary !important;
+			font-size: 14px;
+			font-weight: 600;
     }
+}
+
+:deep(.t-menu__item) {
+    height: 46px;
+    line-height: 46px;
+    margin-bottom: 15px;
+		padding: 0px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 }
 
 .iconImg {

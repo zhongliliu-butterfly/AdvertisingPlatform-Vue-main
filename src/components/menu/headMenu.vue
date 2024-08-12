@@ -2,7 +2,15 @@
     <t-header>
         <div class="header">
             <p class="title">{{ headTitle }}</p>
-            <t-popup placement="bottom">
+            
+            <t-input v-model="keyword" clearable placeholder="请输入您想搜索内容的关键词">
+                <template #suffix-icon>
+                    <img :src="WebApp.getImage('menu/search.png')" alt="">
+                </template>
+            </t-input>
+            <span class="nav-item">时区</span>
+            <span class="nav-item">中/EN</span>
+            <!-- <t-popup placement="bottom">
                 <img class="iconImg" width="20" height="20" :src="WebApp.getImage('menu/rmb.svg')" />
                 <template #content>
                     <t-radio-group :default-value="changeCurrency" class="changeCur" @change="getCurrencyChange">
@@ -23,7 +31,7 @@
                     </t-radio-group>
 
                 </template>
-            </t-popup>
+            </t-popup> -->
             <img class="iconImg" width="20" height="20" :src="WebApp.getImage('menu/bell.svg')" />
             <t-popup placement="bottom" trigger="click">
                 <img class="iconImg" width="20" height="20" :src="WebApp.getImage('menu/customer.png')" />
@@ -67,6 +75,7 @@ const accountData = JSON.parse(localStorage.getItem('account')).account
 
 const changeCurrency: any = ref('')
 const changeLanguage = ref('')
+const keyword = ref('')
 const logOutUser = () => {
     MessagePlugin.success('退出登录！')
     localStorage.removeItem('authToken'); // 清除本地存储中的Token
@@ -104,11 +113,16 @@ const getLanguageChange = (checkedLang) => {
 <style lang="less" scoped>
 // @import url('@/style/common.less');
 @import url('@/style/style.less');
-
+.t-layout__header {
+    background: @back-bg;
+    height: 70px;
+}
 .header {
-    padding: 10px;
+    // padding: 10px;
+    height: 100%;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
 
     .title {
         flex: 1;
@@ -126,6 +140,30 @@ const getLanguageChange = (checkedLang) => {
     .iconImg {
         margin: 6px 10px;
         cursor: pointer;
+    }
+
+    .t-input__wrap {
+        width: 440px !important;;
+        height: 40px !important;
+        line-height: 40px !important;
+        background: #F7F7FA !important;
+    }
+    :deep(.t-input) {
+        width: 440px !important;;
+        height: 40px !important;
+        line-height: 40px !important;
+        background: #F7F7FA !important;
+        border: none !important;
+    }
+    .nav-item {
+        height: 40px;
+        line-height: 40px;
+        background: #F7F7FA;
+        color: #666666;
+        font-size: 14px;
+        padding: 0 12px;
+        margin-left: 10px;
+        border-radius: 4px;
     }
 }
 

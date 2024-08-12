@@ -1,0 +1,65 @@
+.text-success {
+  color: #14CA64;
+}
+.text-error {
+  color: #FF5959;
+}
+.text-warning {
+  color: #FAB007;
+}
+.text-primary {
+  color: #237FFA;
+}
+.text-info {
+  color: #111111;
+}
+.text-info2 {
+  color: #929AA6;
+}
+.bg-success {
+  background-color: #B3F2C6;
+}
+.bg-error {
+  background-color: #FFD1C9;
+}
+.bg-warning {
+  background-color: #FEF2B4;
+}
+.bg-primary {
+  background-color: #E2F3FE;
+}
+.bg-info {
+  background-color: #DFE2E8;
+}
+.bg-info2 {
+  background-color: #F2F4F7;
+}
+.font-small {
+  font-size: 12px;
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Arial', sans-serif;
+}
+.font-medium {
+  font-size: 14px;
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Arial', sans-serif;
+}
+.font-large {
+  font-size: 16px;
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Arial', sans-serif;
+}
+.font-title {
+  font-size: 18px;
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Arial', sans-serif;
+}
+.font-head {
+  font-size: 40px;
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Arial', sans-serif;
+}
+.radius-small {
+  border-radius: 2px;
+}
+.radius-medium {
+  border-radius: 4px;
+}
+.radius-large {
+  border-radius: 8px;
+}

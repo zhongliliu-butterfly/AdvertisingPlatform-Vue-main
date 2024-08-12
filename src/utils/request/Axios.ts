@@ -106,8 +106,8 @@ export class VAxios {
             if (error.response && error.response.status === 401) {
                 console.log('token过期===')
                 // Token无效或已过期
-                localStorage.removeItem('authToken'); // 清除本地存储中的Token
-                toPage('/login/index');  
+                // localStorage.removeItem('authToken'); // 清除本地存储中的Token
+                // toPage('/login/index');  
             }
             return Promise.reject(error);
         });
