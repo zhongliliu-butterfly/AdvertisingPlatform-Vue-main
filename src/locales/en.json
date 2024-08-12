@@ -10,6 +10,8 @@
   "menu6": "Settings",
   "menu6_1": "Shop Authorization",
   "menu6_2": "Organizational Structure",
+  "top_search": "Please enter the keywords for the content you want to search",
+  "timeZone": "timeZone",
   "table": {
     "handle_edit": "Edit",
     "handle_manager": "Manage",
@@ -40,7 +42,8 @@
     "comfirm": "Confirm",
     "comfirm2": "Save",
     "comfirm3": "Submit",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "exit": "exit"
   },
   "menu1_details": {
     "select_person": "Responsible Person",

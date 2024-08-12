@@ -5,7 +5,7 @@
             <img width="28" height="28" :src="WebApp.getImage('common/logo.png')" alt="logo" />
             <div class="logo-info" v-if="!collapsed">
                 <h3 class="logo-title">{{ t('projectName') }}</h3>
-                <span>{{ t('projectSubName') }}</span>
+                <span v-if="locale == 'zh'">{{ t('projectSubName') }}</span>
             </div>
         </template>
         <t-menu-item v-for="item in tabs" :value="item.value" :key="item.value" @click="router.replace(item.url)">
@@ -19,7 +19,7 @@
             <t-button variant="text" shape="square" @click="changeCollapsed">
                 <template #icon><t-icon name="view-list" /></template>
             </t-button>
-            <t-button variant="text" class="logout-btn" shape="square" @click="logOutUser"  v-if="!collapsed">
+            <t-button variant="text" :class="['logout-btn', locale]" shape="square" @click="logOutUser"  v-if="!collapsed">
                 <template #icon><t-icon name="logout" style="transform: rotate(180deg)" /></template>
             </t-button>
         </template>
@@ -278,6 +278,12 @@ function calculateDelay() {
         right: 0px;
         color: #999999;
         transform: translateY(-50%);
+    }
+}
+
+.en {
+    &::after {
+        content: 'exit';
     }
 }
 

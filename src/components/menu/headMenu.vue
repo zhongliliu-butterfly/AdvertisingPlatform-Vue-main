@@ -5,16 +5,16 @@
             <t-auto-complete 
                 v-model="keyword" 
                 clearable 
-                placeholder="请输入您想搜索内容的关键词" 
+                :placeholder="t('top_search')" 
                 :options="['商品', '评论', '消费者声音', '标签', '店铺']" >
                 <template #suffix-icon>
                     <img :src="WebApp.getImage('menu/search.png')" alt="">
                 </template>
             </t-auto-complete>
-            <span class="nav-item">时区</span>
-            <span class="nav-item">中/EN</span>
-            <div class="nav-item">
-                <img width="20" height="20" :src="WebApp.getImage('menu/bell.svg')" />
+            <span class="nav-item">{{ t('timeZone') }}</span>
+            <span class="nav-item" @click="changeLang">中/EN</span>
+            <div class="nav-item1">
+                <img width="40" height="40" :src="WebApp.getImage('menu/unread.png')" />
             </div>
             <t-popup placement="bottom" trigger="click">
                 <div class="user">
@@ -33,7 +33,7 @@
                         <div class="quitLogin" @click="logOutUser">
                             <img class="iconImg" width="20" height="20" :src="WebApp.getImage('menu/quit.png')" />
                             <div>
-                                <p class="title">退出登录 </p>
+                                <p class="title">{{t('btn.exit')}} </p>
                             </div>
                         </div>
                     </div>
@@ -50,7 +50,7 @@ import { MessagePlugin, MenuProps, ButtonProps, RadioGroupProps } from 'tdesign-
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 import * as WebApp from '@/utils/webapp';
 import { useI18n } from 'vue-i18n';
-const { locale } = useI18n();
+const { t, locale } = useI18n();
 const props = withDefaults(
     defineProps<{
         headTitle: string;
@@ -86,6 +86,9 @@ onMounted(() => {
         sessionStorage.setItem('changeCurrency', 'USD')
     }
 })
+const changeLang = () => {
+    locale.value = locale.value === 'zh' ? 'en' : 'zh'
+}
 const getCurrencyChange: RadioGroupProps['onChange'] = (checkedValues) => {
     sessionStorage.setItem('changeCurrency', checkedValues)
     window.location.reload();
@@ -150,6 +153,11 @@ const getLanguageChange = (checkedLang) => {
         padding: 0 12px;
         margin-left: 10px;
         border-radius: 4px;
+    }
+    .nav-item1 {
+        padding: 0;
+        background: #F7F7FA;
+        margin-left: 10px;
 
         img {
             margin: 0px;

@@ -5,7 +5,8 @@
     "menu2": "原声洞察",
     "menu3": "行业分析",
     "menu4": "消费者说",
-    
+    "top_search": "请输入您想搜索内容的关键词",
+    "timeZone": "时区",
     "menu5": "广告策略模板",
     "menu5_1": "创建策略模板",
     "menu5_2": "策略模板管理",
@@ -47,7 +48,8 @@
       "comfirm": "确定",
       "comfirm2": "保存",
       "comfirm3": "提交",
-      "cancel": "取消"
+      "cancel": "取消",
+      "exit": "退出登录"
     },
     "menu1_details": {
       "select_person": "负责人",
