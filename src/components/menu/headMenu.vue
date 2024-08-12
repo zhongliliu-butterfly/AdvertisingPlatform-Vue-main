@@ -2,43 +2,29 @@
     <t-header>
         <div class="header">
             <p class="title">{{ headTitle }}</p>
-            
-            <t-input v-model="keyword" clearable placeholder="请输入您想搜索内容的关键词">
+            <t-auto-complete 
+                v-model="keyword" 
+                clearable 
+                placeholder="请输入您想搜索内容的关键词" 
+                :options="['商品', '评论', '消费者声音', '标签', '店铺']" >
                 <template #suffix-icon>
                     <img :src="WebApp.getImage('menu/search.png')" alt="">
                 </template>
-            </t-input>
+            </t-auto-complete>
             <span class="nav-item">时区</span>
             <span class="nav-item">中/EN</span>
-            <!-- <t-popup placement="bottom">
-                <img class="iconImg" width="20" height="20" :src="WebApp.getImage('menu/rmb.svg')" />
-                <template #content>
-                    <t-radio-group :default-value="changeCurrency" class="changeCur" @change="getCurrencyChange">
-                        <t-radio-button value="USD">美元</t-radio-button>
-                        <t-radio-button value="CNY">人民币</t-radio-button>
-                        <t-radio-button value="EUR">欧元</t-radio-button>
-                        <t-radio-button value="GBP">英镑</t-radio-button>
-                    </t-radio-group>
-
-                </template>
-            </t-popup>
-            <t-popup placement="bottom">
-                <img class="iconImg" width="20" height="20" :src="WebApp.getImage('menu/global.svg')" />
-                <template #content>
-                    <t-radio-group :default-value="changeLanguage" class="changeCur" @change="getLanguageChange">
-                        <t-radio-button value="zh">简体中文-ZH</t-radio-button>
-                        <t-radio-button value="en">English-EN</t-radio-button>
-                    </t-radio-group>
-
-                </template>
-            </t-popup> -->
-            <img class="iconImg" width="20" height="20" :src="WebApp.getImage('menu/bell.svg')" />
+            <div class="nav-item">
+                <img width="20" height="20" :src="WebApp.getImage('menu/bell.svg')" />
+            </div>
             <t-popup placement="bottom" trigger="click">
-                <img class="iconImg" width="20" height="20" :src="WebApp.getImage('menu/customer.png')" />
+                <div class="user">
+                    <span>{{accountData ? accountData.real_name : ''}}</span>
+                    <img width="20" height="20" :src="WebApp.getImage('menu/avatar.png')" />
+                </div>
                 <template #content>
                     <div class="userInfo">
                         <div class="userBlock">
-                            <img class="iconImg" width="20" height="20" :src="WebApp.getImage('menu/customer.png')" />
+                            <img class="iconImg" width="20" height="20" :src="WebApp.getImage('menu/avatar.png')" />
                             <div>
                                 <p class="title">{{ accountData ? accountData.real_name : '' }} </p>
                                 <p class="email">{{ accountData ? accountData.email : '' }}</p>
@@ -142,7 +128,7 @@ const getLanguageChange = (checkedLang) => {
         cursor: pointer;
     }
 
-    .t-input__wrap {
+    .t-input__wrap, .t-auto-complete {
         width: 440px !important;;
         height: 40px !important;
         line-height: 40px !important;
@@ -164,6 +150,23 @@ const getLanguageChange = (checkedLang) => {
         padding: 0 12px;
         margin-left: 10px;
         border-radius: 4px;
+
+        img {
+            margin: 0px;
+        }
+    }
+    .user {
+        margin-left: 10px;
+        span {
+            color: #666666;
+            font-size: 12px;
+        }
+
+        img {
+            height: 40px;
+            width: auto;
+            margin: 0 25px 0 10px;
+        }
     }
 }
 

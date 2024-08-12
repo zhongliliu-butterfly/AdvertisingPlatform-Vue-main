@@ -1,10 +1,10 @@
 <template>
-    <t-menu class="top-menu-temp" v-model:expanded="expanded" theme="light" :default-value="checkedValue"
+    <t-menu class="top-menu-temp" v-model="curTab" v-model:expanded="expanded" theme="light" :default-value="checkedValue"
         expand-mutex @change="changeHandler" :collapsed="collapsed">
         <template #logo>
             <img width="28" height="28" :src="WebApp.getImage('common/logo.png')" alt="logo" />
-            <div class="logo-info">
-                <h3 class="logo-title" v-if="!collapsed">{{ t('projectName') }}</h3>
+            <div class="logo-info" v-if="!collapsed">
+                <h3 class="logo-title">{{ t('projectName') }}</h3>
                 <span>{{ t('projectSubName') }}</span>
             </div>
         </template>
@@ -13,11 +13,14 @@
                 <img class="iconImg" width="auto" height="14"
                     :src="WebApp.getImage(`${curTab === item.value ? item.icon : item.icon+'_gray'}.png`)" />
             </template>
-            {{ item.label }}
+            {{ t(`menu${item.value+1}`) }}
         </t-menu-item>
         <template #operations>
             <t-button variant="text" shape="square" @click="changeCollapsed">
                 <template #icon><t-icon name="view-list" /></template>
+            </t-button>
+            <t-button variant="text" class="logout-btn" shape="square" @click="logOutUser"  v-if="!collapsed">
+                <template #icon><t-icon name="logout" style="transform: rotate(180deg)" /></template>
             </t-button>
         </template>
     </t-menu>
@@ -40,6 +43,18 @@ const props = withDefaults(
     }>(),
     {},
 );
+
+const logOutUser = () => {
+    MessagePlugin.success('退出登录！')
+    localStorage.removeItem('authToken'); // 清除本地存储中的Token
+    localStorage.removeItem('rateData'); // 清除本地存储中的Token
+    localStorage.removeItem('account'); // 清除本地存储中的Token
+    sessionStorage.removeItem('changeLanguage'); // 清除本地存储中的Token
+    sessionStorage.removeItem('changeCurrency'); // 清除本地存储中的Token
+    // sessionStorage.removeItem('profileList'); // 清除本地存储中的Token
+    sessionStorage.removeItem('expanded'); // 清除本地存储中的Token
+    WebApp.toPage('/login/index');
+}
 const curTab = ref(0);
 const tabs = ref([{
 	icon: 'menu/prds',
@@ -158,7 +173,7 @@ function calculateDelay() {
 
 .top-menu-temp {
     height: 100%;
-    min-height: 800px;
+    // min-height: 800px;
     background: @back-bg;
 }
 
@@ -242,6 +257,28 @@ function calculateDelay() {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+}
+
+:deep(.t-menu__operations) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logout-btn {
+    position: relative;
+    width: 46px !important;
+    justify-content: flex-start;
+
+    &::after {
+        font-size: 12px;
+        position: absolute;
+        content: '退出';
+        top: 50%;
+        right: 0px;
+        color: #999999;
+        transform: translateY(-50%);
+    }
 }
 
 .iconImg {

@@ -32,7 +32,7 @@ const defaultRouterList: Array<RouteRecordRaw> = [
     },
     {
         path: '/',
-        redirect: '/login/index',
+        redirect: '/page/products',
         // 控制项目首页
     },
     {
