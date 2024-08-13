@@ -19,7 +19,6 @@
             <t-button variant="text" shape="square" @click="changeCollapsed">
                 <template #icon><t-icon name="view-list" /></template>
             </t-button>
-            <!--   -->
             <t-button variant="text" :class="['logout-btn', locale]" shape="square" @click="logOutUser"  v-if="!collapsed">
                 <template #icon>
                     <!-- <t-icon name="logout" style="transform: rotate(180deg)" /> -->
@@ -257,16 +256,20 @@ function calculateDelay() {
     height: 46px;
     line-height: 46px;
     margin-bottom: 15px;
-		padding: 0px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+    padding: 0px 0 0 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 :deep(.t-menu__operations) {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.collapsed {
+    margin-left: 20px;
 }
 
 .logout-btn {
