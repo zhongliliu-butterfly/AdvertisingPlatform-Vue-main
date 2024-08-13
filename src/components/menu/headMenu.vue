@@ -13,9 +13,9 @@
             </t-auto-complete>
             <span class="nav-item">{{ t('timeZone') }}</span>
             <span class="nav-item" @click="changeLang">中/EN</span>
-            <div class="nav-item1">
+            <t-badge dot  class="bagde">
                 <img width="40" height="40" :src="WebApp.getImage('menu/unread.png')" />
-            </div>
+            </t-badge>
             <t-popup placement="bottom" trigger="click">
                 <div class="user">
                     <span>{{accountData ? accountData.real_name : ''}}</span>
@@ -154,8 +154,9 @@ const getLanguageChange = (checkedLang) => {
         padding: 0 12px;
         margin-left: 10px;
         border-radius: 4px;
+        cursor: pointer;
     }
-    .nav-item1 {
+    .bagde {
         padding: 0;
         background: #F7F7FA;
         margin-left: 10px;
