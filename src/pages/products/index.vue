@@ -94,25 +94,68 @@
       </div>
       <img class="prd-search" :src="WebApp.getImage('common/product_search.png')" />
     </div>
-    <t-tabs>
+    <t-tabs :default-value="1">
       <t-tab-panel :value="1" label="全部商品">
 
-      <t-table :style="{ width: `${screenWidth}px` }" row-key="pointId" :data="adviceTableList"
-          :loading="loading" :table-layout="'fixed'" :columns="columnsAdvice" :bordered="false"
+      <t-table :style="{ width: `${screenWidth}px` }" row-key="pointId" :data="productLists"
+          :loading="loading" :table-layout="'fixed'" :columns="columns1" :bordered="false"
           :pagination="paginationAdvice" cell-empty-content="/" @sort-change="adviceSortChange"
           :hide-sort-tips="true" @page-change="handleChangeAdvice">
-          <template #action_name="{ row }">
-              <div class="table-name">
-                  <div class="table-title">
-                      <p class="tooltip-text" :title="row.action_name"> {{
-                          row.action_name }} </p>
-                      <span class="tip-primary">{{ row.action_term }}</span>
-                  </div>
-                  <p>统计粒度：{{ row.statistic_dim }}</p>
+          <template #product_info="{ row }">
+              <div class="prd_info">
+                <img :src="WebApp.getImage(row.cover)" alt="" srcset="">
+                <div>
+                  <p>
+                    {{ row.title }}
+                  </p>
+                  <p>
+                    {{ row.code }}
+                    <img :src="WebApp.getImage('products/info.png')"/>
+                  </p>
+                </div>
               </div>
           </template>
+          <template #star_rating="{ row }">
+            <t-rate v-model="row.star_rating" :count="5" size="12px" color="#FF3600" />
+            <p>{{ row.star_rating.toFixed(1) }}</p>
+          </template>
+          <template #top3_positive_evaluations="{ row }">
+            <div class="comments" v-for="(item, index) in row.positiveEvaluations" :key="index">
+              <p>
+                <t-tag shape="round"  size="small" color="#FF6E00">{{(item.rate * 100).toFixed(1)}}%/{{item.count}}</t-tag>
+                {{item.desc}}
+              </p>
+            </div>
+            <!-- <t-rate v-model="row.star_rating" :count="5" size="12px" color="#FF3600" />
+            <p>{{ row.star_rating.toFixed(1) }}</p> -->
+          </template>
+          <template #top3_negative_evaluations="{ row }">
+            <div class="comments" v-for="(item, index) in row.negativeEvaluations" :key="index">
+              <p>
+                <t-tag shape="round" size="small" color="#358270">{{(item.rate * 100).toFixed(1)}}%/{{item.count}}</t-tag>
+                {{item.desc}}
+              </p>
+            </div>
+            <!-- <t-rate v-model="row.star_rating" :count="5" size="12px" color="#FF3600" />
+            <p>{{ row.star_rating.toFixed(1) }}</p> -->
+          </template>
           <template #handle="{ row }">
-            <span class="hand_detail" @click="toStragyList(row)">查看明细</span>
+            <t-button size="small" variant="text" style="color: #0073EB">
+              <template #icon>
+                <img :src="WebApp.getImage('products/line.png')" alt="" srcset="">
+              </template>
+              查看趋势</t-button>
+            <t-button size="small" variant="text" style="color: #0073EB">
+              <template #icon>
+                <img :src="WebApp.getImage('products/link.png')" alt="" srcset="">
+              </template>
+              链接直达</t-button>
+            <t-button size="small" variant="text" style="color: #0073EB">
+              <template #icon>
+                <img :src="WebApp.getImage('products/followed.png')" alt="" srcset="">
+              </template>
+              关注商品</t-button>
+            <!-- <span class="hand_detail" @click="toStragyList(row)">查看明细</span> -->
         </template>
       </t-table>
       </t-tab-panel>
@@ -184,14 +227,193 @@ const searchCategory = (search: string) => {
     ];
   }, 500);
 }
+const columnsAdvice = reactive([
+    { colKey: 'action_name', title: '操作动作名称', align: 'center', width: 200 },
+    {
+        colKey: 'last30d_acos', title: '最近30天ACOS', align: 'center', width: 200, sortType: 'all', sorter: true,
+        cell: (h: any, params: { row: any }) => {
+            const { row } = params;
+            if (row.last30d_sale_amt === 0) {
+                return '/';
 
+            } else {
+                return row.last30d_acos + '%';
+            }
+        }
+    },
+    {
+        colKey: 'last30d_cost', title: '最近30天广告花费', align: 'center', width: 180, sortType: 'all', sorter: true,
+        cell: (h: any, params: { row: any }) => {
+            const { row } = params;
+            const cost = exchangeRate(row.last30d_cost, row.currency_code)
+            return cost
+        }
+    },
+    {
+        colKey: 'last30d_ad_spend_pct', title: '最近30天广告花费占比', align: 'center', width: 200, sortType: 'all', sorter: true,
+        cell: (h: any, params: { row: any }) => {
+            const { row } = params;
+            return row.last30d_ad_spend_pct + '%';
+        }
+    },
+    {
+        colKey: 'last30d_sale_amt', title: '最近30天销售额', align: 'center', width: 180, sortType: 'all', sorter: true,
+        cell: (h: any, params: { row: any }) => {
+            const { row } = params;
+            const cost = exchangeRate(row.last30d_sale_amt, row.currency_code)
+            return cost
+        }
+    },
+    {
+        colKey: 'prepost7d_acos_delta', title: '采纳前后7天acos变化', align: 'center', width: 200, sortType: 'all', sorter: true,
+        cell: (h: any, params: { row: any }) => {
+            const { row } = params;
+            return row.prepost7d_acos_delta + '%';
+        }
+    },
+    {
+        colKey: ' last30d_conv_rate', title: '最近30天转化率', align: 'center', width: 180, sortType: 'all', sorter: true,
+        cell: (h: any, params: { row: any }) => {
+            const { row } = params;
 
+            return row.last30d_conv_rate + '%';
+        }
+    },
+    { colKey: 'handle', title: '操作', align: 'center',width: 110 },
+
+]);
+
+const paginationAdvice = reactive({
+    defaultCurrent: 1,
+    defaultPageSize: 10,
+    total: 0,
+});
+
+const handleChangeAdvice = (pageInfo: any) => {
+    paginationAdvice.defaultCurrent = pageInfo.current as number;
+    paginationAdvice.defaultPageSize = pageInfo.pageSize as number;
+};
 const columns1 = reactive([
+  { colKey: 'product_info', className: 'prd_col', title: '商品信息', align: 'left', width: 278, sortType: 'all', sorter: false },
   { colKey: 'total_comments_num', title: '总评价量', align: 'center', width: 120, sortType: 'all', sorter: true },
   { colKey: 'return_volume', title: '退货量', align: 'center', width: 120, sortType: 'all', sorter: true },
   { colKey: 'return_rate', title: '退货率', align: 'center', width: 120, sortType: 'all', sorter: true },
+  { colKey: 'star_rating', title: '星级评分', align: 'left', width: 120, sortType: 'all', sorter: true },
+  { colKey: 'top3_positive_evaluations', title: 'Top3正向评价', align: 'left', width: 226, sortType: 'all', sorter: true },
+  { colKey: 'top3_negative_evaluations', title: 'Top3负向评价', align: 'left', width: 226, sortType: 'all', sorter: true },
+  { colKey: 'handle', title: '操作', align: 'center', width: 120, sortType: 'all', sorter: false },
 ]);
-/**/
+const productLists = ref([{
+  title: 'Under Armour 安德瑪 男款 Tech Golf Polo 衫',
+  cover: 'products/prd_1.png',
+  code: 'BK87539234',
+  total_comments_num: 3,
+  return_volume: 4,
+  return_rate: 3,
+  star_rating: 4,
+  top3_positive_evaluations: 'bfdbdbd',
+  top3_negative_evaluations: 'tbgfbgf',
+  positiveEvaluations: [{
+    desc: '材质柔软不伤皮肤不…',
+    rate: 0.02,
+    count: 26
+  },{
+    desc: '易清洗、易干燥',
+    rate: 0.014,
+    count: 13
+  }, {
+    desc: '做工好',
+    rate: 0.008,
+    count: 9
+  }],
+  negativeEvaluations: [{
+    desc: '材质柔软不伤皮肤不…',
+    rate: 0.02,
+    count: 26
+  },{
+    desc: '易清洗、易干燥',
+    rate: 0.014,
+    count: 13
+  }, {
+    desc: '做工好',
+    rate: 0.008,
+    count: 9
+  }]
+}, {
+  title: 'Under Armour 安德瑪 男款 Tech Golf Polo 衫',
+  cover: 'products/prd_2.png',
+  code: 'BK87539234',
+  total_comments_num: 3,
+  return_volume: 4,
+  return_rate: 3,
+  star_rating: 2,
+  top3_positive_evaluations: 'bfdbdbd',
+  top3_negative_evaluations: 'tbgfbgf',
+  positiveEvaluations: [{
+    desc: '材质柔软不伤皮肤不…',
+    rate: 0.02,
+    count: 26
+  },{
+    desc: '易清洗、易干燥',
+    rate: 0.014,
+    count: 13
+  }, {
+    desc: '做工好',
+    rate: 0.008,
+    count: 9
+  }],
+  negativeEvaluations: [{
+    desc: '材质柔软不伤皮肤不…',
+    rate: 0.02,
+    count: 26
+  },{
+    desc: '易清洗、易干燥',
+    rate: 0.014,
+    count: 13
+  }, {
+    desc: '做工好',
+    rate: 0.008,
+    count: 9
+  }]
+}, {
+  title: 'Under Armour 安德瑪 男款 Tech Golf Polo 衫',
+  cover: 'products/prd_3.png',
+  code: 'BK87539234',
+  total_comments_num: 3,
+  return_volume: 4,
+  return_rate: 3,
+  star_rating: 5,
+  top3_positive_evaluations: 'bfdbdbd',
+  top3_negative_evaluations: 'tbgfbgf',
+  positiveEvaluations: [{
+    desc: '材质柔软不伤皮肤不…',
+    rate: 0.02,
+    count: 26
+  },{
+    desc: '易清洗、易干燥',
+    rate: 0.014,
+    count: 13
+  }, {
+    desc: '做工好',
+    rate: 0.008,
+    count: 9
+  }],
+  negativeEvaluations: [{
+    desc: '颜色与描述不符',
+    rate: 0.232,
+    count: 296
+  },{
+    desc: '材质透明',
+    rate: 0.156,
+    count: 168
+  }, {
+    desc: '材质偏薄',
+    rate: 0.089,
+    count: 98
+  }]
+}])
+/*
+*/
 </script>
 
 
@@ -200,7 +422,7 @@ const columns1 = reactive([
   display: flex;
   // justify-content: space-between;
   align-items: center;
-  padding: 10px 0 20px;
+  padding: 0px 0 16px;
 
   .middle-item {
     width: 136px;
@@ -314,9 +536,20 @@ const columns1 = reactive([
 :deep(.t-tabs__bar) {
   background-color: transparent;
 }
-
+:deep(.t-tabs__nav-item-wrapper) {
+  transition: none !important;
+}
 :deep(.t-tabs__nav-item-wrapper:hover) {
   background-color: transparent !important;
+}
+.t-tabs__nav-item .t-tabs__nav-item-wrapper:hover {  
+    background-color: transparent !important; /* 设置为透明以去掉背景效果 */  
+    transition: none !important; /* 关闭动画效果 */  
+}  
+
+:deep(.t-tabs__nav-item), :deep(.t-tabs__nav-item-wrapper) {  
+  background-color: transparent !important; /* 设置为透明以去掉背景效果 */  
+  transition: none !important; /* 关闭动画效果 */  
 }
 
 .t-tabs__nav-item:not(.t-is-disabled):not(.t-is-active):hover .t-tabs__nav-item-wrapper {
@@ -332,7 +565,67 @@ const columns1 = reactive([
   }
 }
 
-.t-tabs__nav-container.t-is-top::after {
+:deep(.t-tabs__nav-container.t-is-top::after) {
   background-color: transparent !important;
+}
+
+:deep(.t-table th) {
+  padding: 10px 24px !important;
+  background: #F8F8FB !important;
+  border: none !important;
+}
+
+:deep(.t-table__th-cell-inner) {
+  font-size: 12px !important;
+  line-height: 12px !important;
+  color: #999999;
+  font-family: PingFang SC;
+  font-weight: 400;
+  text-align: left;
+}
+
+:deep(.t-table__body td) {
+  vertical-align: top !important;
+}
+
+.prd_info {
+  display: flex;
+  img {
+    width: 72px;
+    height: 72px;
+    margin-right: 12px;
+  }
+  p {
+    font: PingFang SC;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: #111111;
+
+    &:last-child {
+      margin-top: 11px;
+      font-family: PingFang SC;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 12px;
+      text-align: left;
+      color: #AAAAAA;
+
+    }
+
+    img {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+.comments {
+  font-family: PingFang SC;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+  text-align: left;
+
 }
 </style>

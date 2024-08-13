@@ -47,7 +47,7 @@ onMounted(() => {
         flex: 1;
         background: #EFF0F5;
         border-top-left-radius: 8px;
-        padding: 15px;
+        padding: 24px;
     }
 }
 </style>

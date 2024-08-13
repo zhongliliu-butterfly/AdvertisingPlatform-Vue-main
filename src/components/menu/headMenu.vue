@@ -106,6 +106,7 @@ const getLanguageChange = (checkedLang) => {
     background: @back-bg;
     height: 70px;
     min-width: 820px;
+    flex-shrink: 0;
 }
 .header {
     // padding: 10px;
