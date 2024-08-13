@@ -2,7 +2,7 @@
     <t-menu class="top-menu-temp" v-model="curTab" v-model:expanded="expanded" theme="light" :default-value="checkedValue"
         expand-mutex @change="changeHandler" :collapsed="collapsed">
         <template #logo>
-            <img width="28" height="28" :src="WebApp.getImage('common/logo.png')" alt="logo" />
+            <img width="29" height="29" :src="WebApp.getImage('common/logo.png')" alt="logo" />
             <div class="logo-info" v-if="!collapsed">
                 <h3 class="logo-title">{{ t('projectName') }}</h3>
                 <span v-if="locale == 'zh'">{{ t('projectSubName') }}</span>
@@ -10,7 +10,7 @@
         </template>
         <t-menu-item v-for="item in tabs" :value="item.value" :key="item.value" @click="router.replace(item.url)">
             <template #icon>
-                <img class="iconImg" width="auto" height="14"
+                <img class="iconImg" width="14" height="14"
                     :src="WebApp.getImage(`${curTab === item.value ? item.icon : item.icon+'_gray'}.png`)" />
             </template>
             {{ t(`menu${item.value+1}`) }}
@@ -174,6 +174,17 @@ function calculateDelay() {
 <style lang="less" scoped>
 @import url('@/style/style.less');
 
+.t-default-menu{
+    max-width: 200px !important;
+    padding-bottom: 62px;
+    .t-menu__logo{
+        width: 100%;
+    }
+    :deep(.t-menu__operations:not(:empty)){
+        border-top: none;
+    }
+}
+
 .top-menu-temp {
     height: 100%;
     // min-height: 800px;
@@ -182,34 +193,35 @@ function calculateDelay() {
 
 :deep(.t-menu__logo) {
 	height: 70px !important;
-  border-bottom: none !important;
+    border-bottom: none !important;
 }
 
 .logo-info {
     text-align: left;
-    margin-left: 15px;
+    margin-left: 8px;
+    max-width: 120px;
     display: flex;
     flex-direction: column;
     span {
-        font-size: 7px;
-        line-height: 11px;
+        font-size: 6px;
+        line-height: 6px;
         color: #CCCCCC;
+        letter-spacing: 0.6px;
+    }
+    .logo-title {
+        font-size: 20px;
+        line-height: 20px;
+        font-weight: @font-weight-medium;
+        // line-height: @line-height-medium;
+        text-align: left;
+        color: @color-info;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-bottom: 3px;
     }
 }
 
-.logo-title {
-    font-size: 20px;
-    line-height: 22px;
-    font-weight: @font-weight-medium;
-    // line-height: @line-height-medium;
-    text-align: left;
-    color: @color-info;
-    // margin: auto 20px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin: 0px;
-}
 :deep(.t-menu) {
 	padding: 25px 0 0;
 }
@@ -256,7 +268,7 @@ function calculateDelay() {
     height: 46px;
     line-height: 46px;
     margin-bottom: 15px;
-    padding: 0px 0 0 60px;
+    padding: 0px 0 0 48px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -266,6 +278,7 @@ function calculateDelay() {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    border-top: none;
 }
 
 .collapsed {
@@ -274,16 +287,15 @@ function calculateDelay() {
 
 .logout-btn {
     position: relative;
-    width: 70px !important;
+    width: 50px !important;
     justify-content: flex-start;
-    padding: 0 10px;
 
     &::after {
         font-size: 12px;
         position: absolute;
         content: '退出';
         top: 50%;
-        right: 10px;
+        right: 0px;
         color: #999999;
         transform: translateY(-50%);
     }
