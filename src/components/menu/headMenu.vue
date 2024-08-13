@@ -105,6 +105,7 @@ const getLanguageChange = (checkedLang) => {
 .t-layout__header {
     background: @back-bg;
     height: 70px;
+    min-width: 820px;
 }
 .header {
     // padding: 10px;
@@ -158,6 +159,7 @@ const getLanguageChange = (checkedLang) => {
         padding: 0;
         background: #F7F7FA;
         margin-left: 10px;
+        border-radius: 4px;
 
         img {
             margin: 0px;
@@ -173,7 +175,7 @@ const getLanguageChange = (checkedLang) => {
         img {
             height: 40px;
             width: auto;
-            margin: 0 25px 0 10px;
+            margin: 0 50px 0 10px;
         }
     }
 }
