@@ -176,7 +176,11 @@
       </t-table>
       </t-tab-panel>
       <t-tab-panel :value="2" label="我的关注">
-        <p style="margin: 20px">选项卡2内容区</p>
+        <div class="cards">
+          <problemAnalysis :adChart="{index: 1}" :shopDataTime="shopDataTime" />
+          <problemAnalysis :adChart="{index: 2}" :shopDataTime="shopDataTime" />
+          <problemAnalysis :adChart="{index: 3}" :shopDataTime="shopDataTime" />
+        </div>
       </t-tab-panel>
       <t-tab-panel :value="3" label="告警商品">
         <template #label> 告警商品  
@@ -200,6 +204,7 @@ import * as WebApp from '@/utils/webapp';
 import { TableProps, SelectProps } from 'tdesign-vue-next';
 import { ref, onMounted, onUnmounted, reactive } from 'vue';
 import lineChart from '@/components/echarts/lineChart.vue' 
+import problemAnalysis from '@/components/echarts/problemAnalysis.vue' 
 const screenWidth = ref(0);
 onMounted(() => {
     screenWidth.value = window.innerWidth - 305;
@@ -429,7 +434,7 @@ const adChart = ref({
   },
   labels: ['07/01', '07/02', '07/03', '07/04', '07/05', '07/06', '07/07']
 });
-const shopDataTime = ref()
+const shopDataTime = ref('')
 /*
 */
 </script>
@@ -730,5 +735,10 @@ const shopDataTime = ref()
   text-align: left;
   color: #111111;
   margin: 6px 0 0;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-evenly;
 }
 </style>
