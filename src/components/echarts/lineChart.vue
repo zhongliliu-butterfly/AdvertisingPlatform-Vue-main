@@ -34,17 +34,46 @@ function getChart() {
   const keys = _.keys(props.adChart.series);
   // 指定图表的配置项和数据
   var option = {
-    title: { text: props.adChart.title},
+    title: { 
+      text: props.adChart.title,
+      top: 0,
+      textStyle: {
+        fontSize: '18px',
+        fontWeight: 600,
+        color: '#111111'
+      }
+    },
     xAxis: {
       type: 'category',
       data: props.adChart.labels,
       show: true,
       boundaryGap: false,
+      splitLine: { 
+        show: true,
+        lineStyle: {
+          type: 'dashed',
+          color: '#EAEAEA',
+        }
+      },
+      axisLine: {  
+        show: false // 隐藏 X 轴底部的线条  
+      },  
+      axisTick: {  
+        show: true // 显示刻度  
+      },
+      axisLabel: {
+        fontSize: '12px',
+        color: "#AAAAAA"
+      }
     },
     yAxis: {
       type: 'value',
-      splitLine: { show: true },
-      show: true
+      splitLine: { show: false },
+      show: true,
+      axisLabel: {
+        fontSize: '12px',
+        color: "#AAAAAA"
+      }
     },
     tooltip: {
       trigger: 'axis',
@@ -65,13 +94,22 @@ function getChart() {
       data: keys.map(v => ({
         name: props.adChart.series[v].name,
         icon: 'circle'
-      }))
+      })),
+      itemGap: 20,
+      itemWidth: 8, // 设置图标宽度  
+      itemHeight: 8, // 设置图标高度,
+      right: '4%',
+      textStyle: {
+        fontSize: '12px',
+        color: '#CCCCCC'
+      }
     },
     series: keys.map(v => ({
       name: props.adChart.series[v].name,
       data: props.adChart.series[v].data,
       type: 'line',
       symbol: 'circle',
+      symbolSize: 8,
       smooth: true,
       color: props.adChart.series[v].color,// 'rgba(58, 137, 255, 1)',
       areaStyle: {
@@ -85,6 +123,10 @@ function getChart() {
             color: props.adChart.series[v].lowColor, // 'rgba(58, 137, 255, 0)'
           }
         ])
+      },
+      itemStyle: {
+        borderColor: '#fff',
+        borderWidth: 2
       }
     }))
   };
