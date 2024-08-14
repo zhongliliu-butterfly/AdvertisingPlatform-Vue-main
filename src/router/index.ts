@@ -11,7 +11,20 @@ const defaultRouterList: Array<RouteRecordRaw> = [
             {
                 path: 'products',
                 name: 'products',
-                component: () => import('@/pages/products/index.vue'),
+                // component: () => import('@/pages/products/index.vue'),
+                redirect: 'page/products/index',
+                children: [
+                    {
+                        path: 'index',
+                        name: 'index',
+                        component: () => import('@/pages/products/index.vue'),
+                    },
+                    {
+                        path: 'detail',
+                        name: 'detail',
+                        component: () => import('@/pages/products/detail/index.vue'),
+                    }
+                ]
             },
             {
                 path: 'statistic',
@@ -57,16 +70,13 @@ const defaultRouterList: Array<RouteRecordRaw> = [
 // 存放动态路由
 export const asyncRouterList: Array<RouteRecordRaw> = [];
 
-// 自动导入pages文件夹下所有vue文件
 const pages = import.meta.glob('@/pages/**/index.vue');
 Object.keys(pages).forEach((path) => {
     if (path.includes('component') || path.includes('Component')) return '';
-
     const match = path.match(/\/src\/pages(\/.*)\/index\.vue$/);
     if (!match) {
         return '';
     }
-
     const pagePath = match[1];
     const defaultRouter = defaultRouterList.find((value) => {
         return value.path === pagePath;
@@ -128,7 +138,6 @@ Object.keys(pages).forEach((path) => {
 });
 
 export const allRoutes = [...defaultRouterList, ...asyncRouterList];
-
 const router = createRouter({
     history: createWebHashHistory('/'),
     routes: allRoutes,

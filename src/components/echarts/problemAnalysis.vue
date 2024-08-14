@@ -1,6 +1,14 @@
 <template>  
   <div class="bar-chart">  
-    <h2>TOP{{props.adChart.index}} 颜色与描述不符</h2>  
+    <div class="bar-top">
+      <h2><span style="color: #FF3600;">TOP{{props.adChart.index}}</span> 颜色与描述不符</h2>  
+      <t-space>
+        <t-radio-group size="small" variant="default-filled" v-model="type">
+          <t-radio-button value="color">颜色</t-radio-button>
+          <t-radio-button value="size">尺寸</t-radio-button>
+        </t-radio-group>
+      </t-space>
+    </div>
     <div class="description">  
       <p>反馈量：34，占全部反馈占比：3.68%，<br/>在蓝色上反馈最多，在红色上该问题反馈占比最大</p>  
     </div>  
@@ -22,7 +30,7 @@ const props = withDefaults(
   {},
 );
 const chartData: any = reactive({});
-
+const type = ref('color');
 watch(
   () => props.adChart.labels,
   () => {
@@ -119,12 +127,34 @@ function getChart() {
 }
 </script>  
 
-<style scoped>  
+<style lang="less" scoped>  
 .bar-chart {  
   padding: 20px;  
+  .bar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  h2 {
+    font-family: PingFang SC;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    text-align: left;
+    color: #111111;
+    margin: 0;
+  }
 }  
 .description {  
   margin-bottom: 20px;  
+  font-family: PingFang SC;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: left;
+  color: #999999;
+
 } 
 .bar-chart-item {
   width: 360px;

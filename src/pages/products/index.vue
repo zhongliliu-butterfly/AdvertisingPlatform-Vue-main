@@ -98,89 +98,82 @@
     </div>
     <t-tabs v-model="currTab" :default-value="1" :class="{'showTips': currTab === 1}">
       <t-tab-panel :value="1" label="全部商品">
-
-      <t-table :style="{ width: `100%` }" row-key="pointId" :data="productLists"
-          :loading="loading" :table-layout="'fixed'" :columns="columns1" :bordered="false"
-          :pagination="paginationAdvice" cell-empty-content="/" @sort-change="adviceSortChange"
-          :hide-sort-tips="true" @page-change="handleChangeAdvice">
-          <template #total_comments_num_slot> 
-            总评价量 
-            <img height="8px" :src="WebApp.getImage('products/sort.png')"/>
-          </template>
-          <template #return_volume_slot> 
-            退货量 
-            <img height="8px" :src="WebApp.getImage('products/sort.png')"/>
-          </template>
-          <template #return_rate_slot> 
-            退货率 
-            <img height="8px" :src="WebApp.getImage('products/sort.png')"/>
-          </template>
-          <template #star_rating_slot> 
-            星级评分 
-            <img height="8px" :src="WebApp.getImage('products/sort.png')"/>
-          </template>
-          <template #product_info="{ row }">
-              <div class="prd_info">
-                <img :src="WebApp.getImage(row.cover)" alt="" srcset="">
-                <div>
-                  <p>
-                    {{ row.title }}
-                  </p>
-                  <p>
-                    {{ row.code }}
-                    <img :src="WebApp.getImage('products/info.png')"/>
-                  </p>
+        <t-table :style="{ width: `100%` }" row-key="pointId" :data="productLists"
+            :loading="loading" :table-layout="'fixed'" :columns="columns1" :bordered="false"
+            :pagination="paginationAdvice" cell-empty-content="/" @sort-change="adviceSortChange"
+            :hide-sort-tips="true" @page-change="handleChangeAdvice">
+            <template #total_comments_num_slot> 
+              总评价量 
+              <img height="8px" :src="WebApp.getImage('products/sort.png')"/>
+            </template>
+            <template #return_volume_slot> 
+              退货量 
+              <img height="8px" :src="WebApp.getImage('products/sort.png')"/>
+            </template>
+            <template #return_rate_slot> 
+              退货率 
+              <img height="8px" :src="WebApp.getImage('products/sort.png')"/>
+            </template>
+            <template #star_rating_slot> 
+              星级评分 
+              <img height="8px" :src="WebApp.getImage('products/sort.png')"/>
+            </template>
+            <template #product_info="{ row }">
+                <div class="prd_info">
+                  <img :src="WebApp.getImage(row.cover)" alt="" srcset="">
+                  <div>
+                    <p>
+                      {{ row.title }}
+                    </p>
+                    <p>
+                      {{ row.code }}
+                      <img :src="WebApp.getImage('products/info.png')"/>
+                    </p>
+                  </div>
                 </div>
+            </template>
+            <template #star_rating="{ row }">
+              <t-rate v-model="row.star_rating" :count="5" size="12px" color="#FF3600" />
+              <p class="start_rate">{{ row.star_rating.toFixed(1) }}</p>
+            </template>
+            <template #top3_positive_evaluations="{ row }">
+              <div class="comments" v-for="(item, index) in row.positiveEvaluations" :key="index">
+                <t-tag shape="round"  size="small" color="#FF6E00">{{(item.rate * 100).toFixed(1)}}%&nbsp;/&nbsp;{{item.count}}</t-tag>
+                <p>{{item.desc}}</p>
               </div>
-          </template>
-          <template #star_rating="{ row }">
-            <t-rate v-model="row.star_rating" :count="5" size="12px" color="#FF3600" />
-            <p class="start_rate">{{ row.star_rating.toFixed(1) }}</p>
-          </template>
-          <template #top3_positive_evaluations="{ row }">
-            <div class="comments" v-for="(item, index) in row.positiveEvaluations" :key="index">
-              <t-tag shape="round"  size="small" color="#FF6E00">{{(item.rate * 100).toFixed(1)}}%&nbsp;/&nbsp;{{item.count}}</t-tag>
-              <p>{{item.desc}}</p>
-            </div>
-            <!-- <t-rate v-model="row.star_rating" :count="5" size="12px" color="#FF3600" />
-            <p>{{ row.star_rating.toFixed(1) }}</p> -->
-          </template>
-          <template #top3_negative_evaluations="{ row }">
-            <div class="comments" v-for="(item, index) in row.negativeEvaluations" :key="index">
-              <p>
+              <!-- <t-rate v-model="row.star_rating" :count="5" size="12px" color="#FF3600" />
+              <p>{{ row.star_rating.toFixed(1) }}</p> -->
+            </template>
+            <template #top3_negative_evaluations="{ row }">
+              <div class="comments" v-for="(item, index) in row.negativeEvaluations" :key="index">
                 <t-tag shape="round" size="small" color="#358270">{{(item.rate * 100).toFixed(1)}}%&nbsp;/&nbsp;{{item.count}}</t-tag>
-                {{item.desc}}
-              </p>
-            </div>
-            <!-- <t-rate v-model="row.star_rating" :count="5" size="12px" color="#FF3600" />
-            <p>{{ row.star_rating.toFixed(1) }}</p> -->
+                <p>{{item.desc}}</p>
+              </div>
+              <!-- <t-rate v-model="row.star_rating" :count="5" size="12px" color="#FF3600" />
+              <p>{{ row.star_rating.toFixed(1) }}</p> -->
+            </template>
+            <template #handle="{ row }">
+              <t-button size="small" variant="text" style="color: #0073EB" @click="visible=true">
+                <template #icon>
+                  <img width="12px" height="12px" style="margin-right: 8px" :src="WebApp.getImage('products/line.png')" alt="" srcset="">
+                </template>
+                查看趋势</t-button>
+              <t-button size="small" variant="text" style="color: #0073EB">
+                <template #icon>
+                  <img width="12px" height="12px" style="margin-right: 8px" :src="WebApp.getImage('products/link.png')" alt="" srcset=""/>
+                </template>
+                链接直达</t-button>
+              <t-button size="small" variant="text" style="color: #0073EB">
+                <template #icon>
+                  <img width="12px" height="12px" style="margin-right: 8px" :src="WebApp.getImage('products/followed.png')" alt="" srcset=""/>
+                </template>
+                关注商品</t-button>
+              <!-- <span class="hand_detail" @click="toStragyList(row)">查看明细</span> -->
           </template>
-          <template #handle="{ row }">
-            <t-button size="small" variant="text" style="color: #0073EB" @click="visible=true">
-              <template #icon>
-                <img width="12px" height="12px" style="margin-right: 8px" :src="WebApp.getImage('products/line.png')" alt="" srcset="">
-              </template>
-              查看趋势</t-button>
-            <t-button size="small" variant="text" style="color: #0073EB">
-              <template #icon>
-                <img width="12px" height="12px" style="margin-right: 8px" :src="WebApp.getImage('products/link.png')" alt="" srcset=""/>
-              </template>
-              链接直达</t-button>
-            <t-button size="small" variant="text" style="color: #0073EB">
-              <template #icon>
-                <img width="12px" height="12px" style="margin-right: 8px" :src="WebApp.getImage('products/followed.png')" alt="" srcset=""/>
-              </template>
-              关注商品</t-button>
-            <!-- <span class="hand_detail" @click="toStragyList(row)">查看明细</span> -->
-        </template>
-      </t-table>
+        </t-table>
       </t-tab-panel>
       <t-tab-panel :value="2" label="我的关注">
-        <div class="cards">
-          <problemAnalysis :adChart="{index: 1}" :shopDataTime="shopDataTime" />
-          <problemAnalysis :adChart="{index: 2}" :shopDataTime="shopDataTime" />
-          <problemAnalysis :adChart="{index: 3}" :shopDataTime="shopDataTime" />
-        </div>
+        
       </t-tab-panel>
       <t-tab-panel :value="3" label="告警商品">
         <template #label> 告警商品  
@@ -721,9 +714,14 @@ const shopDataTime = ref('')
     font-size: 12px;
     font-weight: 400;
     line-height: 12px;
+    height: 12px;
     text-align: left;
     margin-bottom: 0;
     margin-left: 10px;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 
