@@ -96,10 +96,10 @@
       </div>
       <img class="prd-search" :src="WebApp.getImage('common/product_search.png')" />
     </div>
-    <t-tabs :default-value="1">
+    <t-tabs v-model="currTab" :default-value="1" :class="{'showTips': currTab === 1}">
       <t-tab-panel :value="1" label="全部商品">
 
-      <t-table :style="{ width: `${screenWidth}px` }" row-key="pointId" :data="productLists"
+      <t-table :style="{ width: `100%` }" row-key="pointId" :data="productLists"
           :loading="loading" :table-layout="'fixed'" :columns="columns1" :bordered="false"
           :pagination="paginationAdvice" cell-empty-content="/" @sort-change="adviceSortChange"
           :hide-sort-tips="true" @page-change="handleChangeAdvice">
@@ -163,12 +163,12 @@
               查看趋势</t-button>
             <t-button size="small" variant="text" style="color: #0073EB">
               <template #icon>
-                <img width="12px" height="12px" style="margin-right: 8px" :src="WebApp.getImage('products/link.png')" alt="" srcset="">
+                <img width="12px" height="12px" style="margin-right: 8px" :src="WebApp.getImage('products/link.png')" alt="" srcset=""/>
               </template>
               链接直达</t-button>
             <t-button size="small" variant="text" style="color: #0073EB">
               <template #icon>
-                <img width="12px" height="12px" style="margin-right: 8px" :src="WebApp.getImage('products/followed.png')" alt="" srcset="">
+                <img width="12px" height="12px" style="margin-right: 8px" :src="WebApp.getImage('products/followed.png')" alt="" srcset=""/>
               </template>
               关注商品</t-button>
             <!-- <span class="hand_detail" @click="toStragyList(row)">查看明细</span> -->
@@ -179,6 +179,9 @@
         <p style="margin: 20px">选项卡2内容区</p>
       </t-tab-panel>
       <t-tab-panel :value="3" label="告警商品">
+        <template #label> 告警商品  
+          <img width="14px" height="13px" style="margin-left: 4px" :src="WebApp.getImage('products/alarm.png')" alt="" srcset=""/>
+        </template>
         <p style="margin: 20px">选项卡3内容区</p>
       </t-tab-panel>
     </t-tabs>
@@ -250,7 +253,7 @@ const searchCategory = (search: string) => {
     ];
   }, 500);
 }
-
+const currTab = ref(1);
 const paginationAdvice = reactive({
     defaultCurrent: 1,
     defaultPageSize: 10,
@@ -584,6 +587,20 @@ const shopDataTime = ref()
     font-size: 18px;
     font-weight: 600;
   }
+}
+
+:deep(.showTips .t-tabs__nav-container::before) {
+  content: "全部商品会在此展示，点击关注商品，该商品会归纳到我的关注，告警商品会被标为红色";
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+  text-align: right;
+  color: #AAAAAA;
+  position: absolute;
+  top: 50%;
+  height:12px;
+  right: 30px;
+  transform: translateY(-50%);
 }
 
 :deep(.t-tabs__nav-container.t-is-top::after) {
