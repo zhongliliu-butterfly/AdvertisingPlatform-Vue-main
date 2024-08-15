@@ -28,7 +28,7 @@
             <template #icon>
               <img width="auto" height="12" :src="WebApp.getImage('products/menu.png')" alt="logo" />
             </template>
-            类目
+            数据源
           </t-button>
         </div>
         <t-select v-model="category" value-type="object" filterable placeholder="请选择/搜索" :options="categoryList"
@@ -81,8 +81,35 @@
       <problemAnalysis :adChart="{index: 2}" :shopDataTime="shopDataTime" />
       <problemAnalysis :adChart="{index: 3}" :shopDataTime="shopDataTime" />
     </div>
-    <div class="cards bg">
-
+    <div class="cards bg" v-if="curTabs === '2'">
+      <div class="comments_option">
+        <p>
+          <span>尺码</span>
+          <t-checkbox-group 
+            v-model="checked" 
+            :options="['X-Large', 'Large', 'Medium', 'Samll']" 
+            name="size"
+          ></t-checkbox-group>
+        </p>
+        <p>
+          <span>颜色</span>
+          <t-checkbox-group 
+            v-model="checked" 
+            :options="['蓝色', '红色', '绿色', '深蓝色', '橙色']" 
+            name="color"
+          ></t-checkbox-group>
+        </p>
+        <t-divider></t-divider>
+        <t-tabs :default-value="1">
+          <t-tab-panel :value="1" label="差评分析">
+            <p style="margin: 20px"></p>
+            <feedbackChart :adChart="{index: 1}" :shopDataTime="shopDataTime" />
+          </t-tab-panel>
+          <t-tab-panel :value="2" label="好评分析">
+            <p style="margin: 20px">好评分析</p>
+          </t-tab-panel>
+        </t-tabs>
+      </div>
     </div>
   </div>
 </template>
@@ -91,6 +118,7 @@
 import * as WebApp from '@/utils/webapp';
 import { ref, onMounted, onUnmounted, reactive, watch } from 'vue';
 import problemAnalysis from '@/components/echarts/problemAnalysis.vue'
+import feedbackChart from '@/components/echarts/feedbackChart.vue'
 const shopDataTime = ref('');
 const countrys = ref([
   {
@@ -127,7 +155,34 @@ const product = ref({
   returnVolumnComments: 189
 })
 
-const curTabs = ref('2');
+const curTabs = ref('2'), 
+  checked = ref([]), 
+  loading2 = ref(false), 
+  category = ref(''), 
+  categoryList = ref([]);
+
+const searchCategory = (search: string) => {
+  console.log('search', search);
+  loading2.value = true;
+  setTimeout(() => {
+    loading2.value = false;
+    categoryList.value = [
+      {
+        value: `${search}1`,
+        label: `${search}test1`,
+      },
+      {
+        value: `${search}2`,
+        label: `${search}test2`,
+      },
+      {
+        value: `${search}3`,
+        label: `${search}test3`,
+      },
+    ];
+  }, 500);
+}
+
 watch(country, (newVal) => {
   const item = countrys.value.find(v => v.content === newVal);
   countryIcon.value = item ? item.icon : ''
@@ -165,6 +220,10 @@ watch(country, (newVal) => {
     
     :deep(.t-select-input .t-input) {
       border: none;
+    }
+
+    .t-button--variant-text:hover, .t-button--variant-text:focus-visible {
+      background: transparent;
     }
 
     :deep(.t-input:hover),
@@ -351,11 +410,118 @@ watch(country, (newVal) => {
       margin-right: 0px;
     }
   }
+
+  .comments_option {
+    width: 100%;
+    padding: 16px 24px;
+    // border-bottom: 1px solid #F8F8FB;
+
+    p {
+      margin-bottom: 12px;
+      span {
+        margin-right: 24px;
+        font-family: PingFang SC;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 12px;
+        text-align: left;
+        color: #999999;
+      }
+
+      :deep(.t-checkbox) {
+        border: 1px solid #ddd;
+        padding: 8px 15px;
+        border-radius: 3px;
+
+        .t-checkbox__input {
+          display: none;
+        }
+
+        .t-checkbox__label {
+          font-family: PingFang SC;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 12px;
+          text-align: left;
+          color: #111111;
+          margin-left: 0px;
+        }
+      }
+
+      :deep(.t-is-checked) {
+        border-color: #003469;
+        .t-checkbox__label {
+          color: #003469;
+        }
+      }
+    }
+
+    .t-divider {
+      border-top: 1px solid #F8F8FB;
+    }
+
+    :deep(.t-tabs__nav-item.t-is-active) {
+      text-shadow: none;
+    }
+
+    :deep(.t-tabs__bar) {
+      background-color: transparent;
+    }
+    :deep(.t-tabs__nav-item-wrapper:hover) {
+      background-color: transparent !important;
+      transition: none !important; 
+    }
+    :deep(.t-tabs__nav-item .t-tabs__nav-item-wrapper:hover) {  
+      background-color: transparent !important; /* 设置为透明以去掉背景效果 */  
+      transition: none !important; /* 关闭动画效果 */  
+    }  
+    :deep(.t-tabs__nav-container.t-is-top::after) {
+      background-color: #F8F8FB;
+    }
+
+    :deep(.t-tabs__nav-item), :deep(.t-tabs__nav-item-wrapper) {  
+      background-color: transparent !important; /* 设置为透明以去掉背景效果 */  
+      transition: none !important; /* 关闭动画效果 */  
+    }
+
+    .t-tabs__nav-item:not(.t-is-disabled):not(.t-is-active):hover .t-tabs__nav-item-wrapper {
+
+      background-color: transparent !important;
+    }
+    :deep(.t-tabs__nav-item-wrapper) {
+      transition: none;
+      background: transparent;
+
+      .t-tabs__nav-item-text-wrapper {
+        font-family: PingFang SC;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 12px;
+        text-align: left;
+        color: #666666;
+      }
+    }
+    :deep(.t-is-active) {
+      .t-tabs__nav-item-text-wrapper {
+        font-family: PingFang SC;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 14px;
+        text-align: left;
+        color: #111111;
+      }
+    }
+    :deep(.t-tabs__bar) {
+      // width: 56px !important;
+      height: 1px;
+      background-color: #003469;
+    }
+  }
 }
 
 .bg {
+  // height:363px;
   background: #fff;
   border-radius: 8px;
-  flex: 1;
 }
 </style>
