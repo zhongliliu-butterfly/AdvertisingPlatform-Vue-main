@@ -102,8 +102,11 @@
         <t-divider></t-divider>
         <t-tabs :default-value="1">
           <t-tab-panel :value="1" label="差评分析">
-            <p style="margin: 20px"></p>
-            <feedbackChart :adChart="{index: 1}" :shopDataTime="shopDataTime" />
+            <div style="margin: 20px" class="comments_analysis">
+              <feedbackChart :adChart="{index: 1}" :shopDataTime="shopDataTime" />
+              <feedbackChart :adChart="{index: 2}" :shopDataTime="shopDataTime" />
+              <feedbackChart :adChart="{index: 3}" :shopDataTime="shopDataTime" />
+            </div>
           </t-tab-panel>
           <t-tab-panel :value="2" label="好评分析">
             <p style="margin: 20px">好评分析</p>
@@ -515,6 +518,16 @@ watch(country, (newVal) => {
       // width: 56px !important;
       height: 1px;
       background-color: #003469;
+    }
+
+    .comments_analysis {
+      display: flex;
+      justify-content: space-between;
+
+      .chart {
+        flex: 1;
+        margin-right: 16px;
+      }
     }
   }
 }

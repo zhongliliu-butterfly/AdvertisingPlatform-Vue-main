@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chart">
     <div class="echarts-box" :id="`feedbar-${props.adChart.index}`"></div>
   </div>
 </template>
@@ -117,7 +117,7 @@ function getChart() {
 
 <style lang="less" scoped>
 .echarts-box {
-  width: 400px;
+  width: 100%;
   height: 270px;
 }
 </style>
