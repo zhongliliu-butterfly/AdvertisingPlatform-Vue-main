@@ -178,7 +178,7 @@ function getChart() {
   }
 } 
 .bar-chart-item {
-  width: 360px;
+  width: 100%;
   height: 200px;
 } 
 </style>
