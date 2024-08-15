@@ -11,22 +11,15 @@
           </t-button>
         </div>
         <div class="tdesign-demo-dropdown">
-          <t-dropdown trigger="click" @click="">
-            <t-button variant="text">
-              <span class="tdesign-demo-dropdown__text">
-                请选择
-              </span>
-              <template #suffix>
-                <img width="auto" height="6" :src="WebApp.getImage('products/down.png')" alt="logo" />
-              </template>
-            </t-button>
-            <t-dropdown-menu style="width: 100%">
-              <t-dropdown-item style="width: 100%" v-for="item in countrys" :key="item.value" :value="item.value">
-                <img width="auto" height="12" :src="WebApp.getImage(item.icon)" alt="logo" />
+          <t-select v-model="country">
+            <template #prefixIcon>
+              <img width="auto" height="12" v-if="countryIcon" :src="WebApp.getImage(countryIcon)" alt="logo" />
+            </template>
+            <t-option v-for="item in countrys" :key="item.value" :value="item.content">
+              <img width="auto" height="12" :src="WebApp.getImage(item.icon)" alt="logo" />
                 {{ item.content }}
-              </t-dropdown-item>
-            </t-dropdown-menu>
-          </t-dropdown>
+            </t-option>
+          </t-select>
         </div>
       </div>
       <div class="large-item">
@@ -158,7 +151,7 @@
                   <img width="12px" height="12px" style="margin-right: 8px" :src="WebApp.getImage('products/line.png')" alt="" srcset="">
                 </template>
                 查看趋势</t-button>
-              <t-button size="small" variant="text" style="color: #0073EB">
+              <t-button size="small" variant="text" style="color: #0073EB" @click="WebApp.toPage('/page/products/detail')">
                 <template #icon>
                   <img width="12px" height="12px" style="margin-right: 8px" :src="WebApp.getImage('products/link.png')" alt="" srcset=""/>
                 </template>
@@ -195,7 +188,7 @@
 <script setup lang="ts">
 import * as WebApp from '@/utils/webapp';
 import { TableProps, SelectProps } from 'tdesign-vue-next';
-import { ref, onMounted, onUnmounted, reactive } from 'vue';
+import { ref, onMounted, onUnmounted, reactive, watch } from 'vue';
 import lineChart from '@/components/echarts/lineChart.vue' 
 import problemAnalysis from '@/components/echarts/problemAnalysis.vue' 
 const screenWidth = ref(0);
@@ -210,23 +203,31 @@ onUnmounted(() => {
 function updateScreenWidth() {
   screenWidth.value = window.innerWidth - 305;
 }
-const countrys = ref([{
-  content: '中国',
-  value: 'china',
-  icon: 'products/China.png',
-}, {
-  content: '美国',
-  value: 'US',
-  icon: 'products/US.png',
-}, {
-  content: '日本',
-  value: 'Japan',
-  icon: 'products/Japan.png',
-}, {
-  content: '法国',
-  value: 'French',
-  icon: 'products/French.png',
-}])
+const countrys = ref([
+  {
+    content: '中国',
+    value: 'china',
+    icon: 'products/China.png',
+  }, {
+    content: '美国',
+    value: 'US',
+    icon: 'products/US.png',
+  }, {
+    content: '日本',
+    value: 'Japan',
+    icon: 'products/Japan.png',
+  }, {
+    content: '法国',
+    value: 'French',
+    icon: 'products/French.png',
+  }
+])
+const country = ref(''), countryIcon = ref('');
+
+watch(country, (newVal) => {
+  const item = countrys.value.find(v => v.content === newVal);
+  countryIcon.value = item ? item.icon : ''
+})
 const category = ref({}), loading2 = ref(false);
 const categoryList = ref<TableProps['data']>([])
 const asin = ref('');
@@ -664,6 +665,10 @@ const shopDataTime = ref('')
       height: 12px;
     }
   }
+}
+
+:deep(.t-table__row--hover:hover .prd_info p:first-child) {
+  color: #D40000;
 }
 
 :deep(.comments_num) {

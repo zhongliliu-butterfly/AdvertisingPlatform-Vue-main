@@ -3,7 +3,8 @@
     <div class="bar-top">
       <h2><span style="color: #FF3600;">TOP{{props.adChart.index}}</span> 颜色与描述不符</h2>  
       <t-space>
-        <t-radio-group size="small" variant="default-filled" v-model="type">
+        <!--  variant="default-filled" -->
+        <t-radio-group size="small" v-model="type">
           <t-radio-button value="color">颜色</t-radio-button>
           <t-radio-button value="size">尺寸</t-radio-button>
         </t-radio-group>
@@ -134,6 +135,25 @@ function getChart() {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+
+    :deep(.t-radio-group .t-radio-button__label) {
+      font-family: PingFang SC;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 12px;
+      text-align: left;
+      color: #999999;
+    }
+    :deep(.t-radio-group .t-radio-button.t-is-checked) {
+      border-color: #003469;
+      border-width: 1px;
+    }
+    :deep(.t-radio-group .t-radio-button.t-is-checked .t-radio-button__label) {
+      border-color: #003469;
+      border-width: 1px;
+      color: #003469;
+    }
   }
 
   h2 {
@@ -148,13 +168,14 @@ function getChart() {
 }  
 .description {  
   margin-bottom: 20px;  
-  font-family: PingFang SC;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-  text-align: left;
-  color: #999999;
-
+  p {
+    font-family: PingFang SC;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: left;
+    color: #999999;
+  }
 } 
 .bar-chart-item {
   width: 360px;

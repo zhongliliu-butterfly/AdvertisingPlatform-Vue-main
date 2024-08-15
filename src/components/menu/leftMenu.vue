@@ -63,7 +63,7 @@ const tabs = ref([{
 	icon: 'menu/prds',
 	value: 0,
 	label: '我的商品',
-	url: '/page/products'
+	url: '/page/products/index'
 },{
 	icon: 'menu/msg',
 	value: 1,

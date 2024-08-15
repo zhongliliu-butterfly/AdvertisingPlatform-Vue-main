@@ -168,7 +168,7 @@ async function getStoreInfoData() {
     // });
     // sessionStorage.setItem('profileList', JSON.stringify(profileList.value))
     if (storeInfo.value.length > 0) {
-        WebApp.toPage(`/page/products`)
+        WebApp.toPage(`/page/products/index`)
     } else {
         WebApp.toPage(`/projectSetting/authorization?title=`+t('menu6_1'))
     sessionStorage.setItem('expanded',JSON.stringify(["projectSetting"]))
@@ -186,7 +186,7 @@ async function getAccountData(expiryTime: any) {
     if (res.role === 'root') {
         getStoreInfoData()
     } else {
-        WebApp.toPage(`/page/products`)
+        WebApp.toPage(`/page/products/index`)
     }
 }
 </script>
