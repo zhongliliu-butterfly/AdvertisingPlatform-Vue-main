@@ -54,8 +54,11 @@
           <p>{{ product.returnVolumnComments }}条退货评价</p>
         </div>
       </div>
-      <img class="btn" :src="WebApp.getImage('products/follow_btn.png')" />
-      <img class="btn view_voice" :src="WebApp.getImage('products/view_voices.png')" />
+      
+      <t-button class="btn">关注商品</t-button>
+      <t-button class="btn view_voice">查看原声</t-button>
+      <!-- <img class="btn" :src="WebApp.getImage('products/follow_btn.png')" /> -->
+      <!-- <img class="btn view_voice" :src="WebApp.getImage('products/view_voices.png')" /> -->
     </div>
     <t-space class="top-nav">
       <t-radio-group class="tabs" v-model="curTabs" default-value="3">
@@ -148,6 +151,7 @@
                   reserveKeyword
                 />
               </div>
+              <t-button>开始对比</t-button>
             </div>
             <div class="prd">
               <span>对方<br/>信息</span>
@@ -228,7 +232,7 @@ const product = ref({
   returnVolumnComments: 189
 })
 
-const curTabs = ref('3'), 
+const curTabs = ref('1'), 
   checked = ref(''), 
   checkedSize = ref(''), 
   checkedColor = ref(''), 
@@ -413,14 +417,40 @@ watch(country, (newVal) => {
     }
   }
 
-  .btn {
-    width: 120px;
-    height: 40px;
-    cursor: pointer;
+  :deep(.t-button) {
+    margin-right: 16px;
+    background: linear-gradient(0deg, #003469, #003469),
+      radial-gradient(110.29% 21.62% at 50% 100%, #006FDF 0%, rgba(0, 52, 105, 0.0001) 100%);
+    
+    .t-button__text {
+      font-family: PingFang SC;
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 12px;
+      text-align: left;
+      color: #FFFFFF;
+    }
   }
+
+  // .btn {
+  //   width: 120px;
+  //   height: 40px;
+  //   cursor: pointer;
+  // }
 
   .view_voice {
     margin-right: 50px;
+    border: 1px solid #003469;
+    background: #FFFFFF;
+
+    :deep(.t-button__text) {
+      font-family: PingFang SC;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 12px;
+      text-align: left;
+      color: #111111;
+    }
   }
 }
 
@@ -712,6 +742,21 @@ watch(country, (newVal) => {
         }
         .t-select__wrap {
           margin-top: 5px;
+        }
+      }
+
+      :deep(.t-button) {
+        margin-top: 26px;
+        background: linear-gradient(0deg, #003469, #003469),
+          radial-gradient(110.29% 21.62% at 50% 100%, #006FDF 0%, rgba(0, 52, 105, 0.0001) 100%);
+        
+        .t-button__text {
+          font-family: PingFang SC;
+          font-size: 11px;
+          font-weight: 400;
+          line-height: 12px;
+          text-align: left;
+          color: #FFFFFF;
         }
       }
     }
