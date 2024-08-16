@@ -112,7 +112,7 @@ function getChart() {
         data: [
           { value: 296, name: '版本' },
           { value: 198, name: '面料' },
-          { value: 123, name: '维制' },
+          { value: 123, name: '缝制' },
           { value: 84, name: '其他' }
         ],
         itemStyle: {
@@ -144,7 +144,7 @@ function getChart() {
         data: [
           { value: 296, name: '版本' },
           { value: 198, name: '面料' },
-          { value: 123, name: '维制' },
+          { value: 123, name: '缝制' },
           { value: 84, name: '其他' }
         ],
         showBackground: true,
@@ -155,9 +155,10 @@ function getChart() {
         label: {  
           show: true,  
           position: [0, -2], // 外部展示  
-          formatter: '{b}:{c}', // 显示名称和数值  
+          formatter: '{b} {c}', // 显示名称和数值  
           overflow: 'break',
-          verticalAlign: 'bottom'
+          verticalAlign: 'bottom',
+          color: '#111111'
         },
         // itemStyle: {
         //   color: '#5470C6', 

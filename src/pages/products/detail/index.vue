@@ -58,7 +58,7 @@
       <img class="btn view_voice" :src="WebApp.getImage('products/view_voices.png')" />
     </div>
     <t-space class="top-nav">
-      <t-radio-group class="tabs" v-model="curTabs" default-value="1">
+      <t-radio-group class="tabs" v-model="curTabs" default-value="3">
         <t-radio-button value="1">重点问题跟进</t-radio-button>
         <t-radio-button value="2">客户反馈分析</t-radio-button>
         <t-radio-button value="3">对比分析</t-radio-button>
@@ -85,19 +85,19 @@
       <div class="comments_option">
         <p>
           <span>尺码</span>
-          <t-checkbox-group 
-            v-model="checked" 
+          <t-radio-group 
+            v-model="checkedSize" 
             :options="['X-Large', 'Large', 'Medium', 'Samll']" 
             name="size"
-          ></t-checkbox-group>
+          ></t-radio-group>
         </p>
         <p>
           <span>颜色</span>
-          <t-checkbox-group 
-            v-model="checked" 
+          <t-radio-group 
+            v-model="checkedColor" 
             :options="['蓝色', '红色', '绿色', '深蓝色', '橙色']" 
             name="color"
-          ></t-checkbox-group>
+          ></t-radio-group>
         </p>
         <t-divider></t-divider>
         <t-tabs :default-value="1">
@@ -162,8 +162,10 @@ const product = ref({
   returnVolumnComments: 189
 })
 
-const curTabs = ref('2'), 
-  checked = ref([]), 
+const curTabs = ref('3'), 
+  checked = ref(''), 
+  checkedSize = ref(''), 
+  checkedColor = ref(''), 
   loading2 = ref(false), 
   category = ref(''), 
   categoryList = ref([]);
@@ -441,16 +443,16 @@ watch(country, (newVal) => {
         color: #999999;
       }
 
-      :deep(.t-checkbox) {
+      :deep(.t-radio) {
         border: 1px solid #ddd;
         padding: 8px 15px;
         border-radius: 3px;
 
-        .t-checkbox__input {
+        .t-radio__input {
           display: none;
         }
 
-        .t-checkbox__label {
+        .t-radio__label {
           font-family: PingFang SC;
           font-size: 12px;
           font-weight: 400;
