@@ -47,7 +47,7 @@
           {{ product.origin }}
         </p>
         <div class="desc">
-          <t-rate v-model="product.star_rating" :count="5" size="12px" color="#FF3600" />
+          <t-rate v-model="product.star_rating" disabled :count="5" size="12px" color="#FF3600" />
           <span class="start_rate">{{ product.star_rating.toFixed(1) }}</span>
 
           <p>{{ product.comments }}条评价</p>
@@ -118,6 +118,71 @@
         </t-tabs>
       </div>
     </div>
+    <div class="compare_card" v-if="curTabs === '3'">
+      
+      <t-tabs v-model="vsTab" :default-value="1">
+        <t-tab-panel :value="1" label="商品VS商品">
+          <div class="compare_filter">
+            <div class="compare_type">
+              <div>
+                <label>国家</label>
+                <t-select v-model="country">
+                  <template #prefixIcon>
+                    <img width="auto" height="12" v-if="countryIcon" :src="WebApp.getImage(countryIcon)" alt="logo" />
+                  </template>
+                  <t-option v-for="item in countrys" :key="item.value" :value="item.content">
+                    <img width="auto" height="12" :src="WebApp.getImage(item.icon)" alt="logo" />
+                      {{ item.content }}
+                  </t-option>
+                </t-select>
+              </div>
+              <div>
+                <label>商品ASIN</label>
+                <t-select v-model="category" 
+                  value-type="object" 
+                  filterable 
+                  placeholder="请选择/搜索" 
+                  :options="categoryList"
+                  @search="searchCategory" 
+                  :loading="loading2" 
+                  reserveKeyword
+                />
+              </div>
+            </div>
+            <div class="prd">
+              <span>对方<br/>信息</span>
+              <img :src="WebApp.getImage(product.cover)" alt="" srcset="">
+              <div class="prd_info">
+                <p>
+                  {{ product.title }}
+                </p>
+                <div class="desc">
+                  <label>
+                    {{ product.origin }}
+                  </label>
+                  <t-rate v-model="product.star_rating" disabled :count="5" size="12px" color="#FF3600" />
+                  <span class="start_rate">{{ product.star_rating.toFixed(1) }}</span>
+
+                  <p>{{ product.comments }}条评价</p>
+                  <p>{{ product.returnVolumnComments }}条退货评价</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </t-tab-panel>
+        <t-tab-panel :value="2" label="商品VS品牌">
+        </t-tab-panel>
+        <t-tab-panel :value="3" label="商品VS店铺">
+        </t-tab-panel>
+        <t-tab-panel :value="4" label="商品VS行业">
+        </t-tab-panel>
+      </t-tabs>
+      <div class="comparative">
+        <comparativeChart class="bg" :adChart="{index: 1}" :shopDataTime="shopDataTime" />
+        <comparativeChart class="bg" :adChart="{index: 2}" :shopDataTime="shopDataTime" />
+        <comparativeChart class="bg" :adChart="{index: 3}" :shopDataTime="shopDataTime" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -126,6 +191,7 @@ import * as WebApp from '@/utils/webapp';
 import { ref, onMounted, onUnmounted, reactive, watch } from 'vue';
 import problemAnalysis from '@/components/echarts/problemAnalysis.vue'
 import feedbackChart from '@/components/echarts/feedbackChart.vue'
+import comparativeChart from '@/components/echarts/comparativeChart.vue'
 const shopDataTime = ref('');
 const countrys = ref([
   {
@@ -168,7 +234,8 @@ const curTabs = ref('3'),
   checkedColor = ref(''), 
   loading2 = ref(false), 
   category = ref(''), 
-  categoryList = ref([]);
+  categoryList = ref([]),
+  vsTab = ref(1);
 
 const searchCategory = (search: string) => {
   console.log('search', search);
@@ -313,6 +380,16 @@ watch(country, (newVal) => {
     .desc {
       display: flex;
       align-items: center;
+      label {
+        font-family: PingFang SC;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 12px;
+        text-align: left;
+        color: #AAAAAA;
+        margin-right: 24px;
+      }
+
       .start_rate {
         font-family: PingFang SC;
         font-size: 14px;
@@ -331,6 +408,7 @@ watch(country, (newVal) => {
         text-align: left;
         color: #666666;
         margin: 0 0 0 24px;
+        cursor: pointer;
       }
     }
   }
@@ -544,6 +622,138 @@ watch(country, (newVal) => {
       }
     }
   }
+}
+
+.compare_card {
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .t-tabs {
+    border-radius: 8px;
+  }
+
+  :deep(.t-tabs__nav-item.t-is-active) {
+    text-shadow: none;
+  }
+
+  :deep(.t-tabs__bar) {
+    background-color: transparent;
+  }
+  :deep(.t-tabs__nav-item-wrapper:hover) {
+    background-color: transparent !important;
+    transition: none !important; 
+  }
+  :deep(.t-tabs__nav-item .t-tabs__nav-item-wrapper:hover) {  
+    background-color: transparent !important; /* 设置为透明以去掉背景效果 */  
+    transition: none !important; /* 关闭动画效果 */  
+  }  
+  :deep(.t-tabs__nav-container.t-is-top::after) {
+    background-color: #F8F8FB;
+  }
+
+  :deep(.t-tabs__nav-item), :deep(.t-tabs__nav-item-wrapper) {  
+    background-color: transparent !important; /* 设置为透明以去掉背景效果 */  
+    transition: none !important; /* 关闭动画效果 */  
+  }
+
+  .t-tabs__nav-item:not(.t-is-disabled):not(.t-is-active):hover .t-tabs__nav-item-wrapper {
+
+    background-color: transparent !important;
+  }
+  :deep(.t-tabs__nav-item-wrapper) {
+    transition: none;
+    background: transparent;
+
+    .t-tabs__nav-item-text-wrapper {
+      font-family: PingFang SC;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 12px;
+      text-align: left;
+      color: #666666;
+    }
+  }
+  :deep(.t-is-active) {
+    .t-tabs__nav-item-text-wrapper {
+      font-family: PingFang SC;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 14px;
+      text-align: left;
+      color: #111111;
+    }
+  }
+  // :deep(.t-tabs__nav-item) {
+    // width: 56px !important;
+  // }
+  :deep(.t-tabs__bar) {
+    height: 1px;
+    background-color: #003469;
+  }
+
+  .compare_filter {
+    padding: 20px 24px;
+    display: flex;
+    .compare_type {
+      display: flex;
+      align-items: center;
+
+      & > div {
+        margin-right: 16px;
+        label {
+          font-family: PingFang SC;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 12px;
+          text-align: left;
+          color: #666666;
+        }
+        .t-select__wrap {
+          margin-top: 5px;
+        }
+      }
+    }
+    .prd {
+      flex: 1;
+      margin-bottom: 0px;
+      background: #F8F8FA;
+      border-radius: 8px;
+      margin-left: 76px;
+      & > span {
+        font-family: PingFang SC;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 12px;
+        text-align: left;
+        color: #666666;
+      }
+
+      img {
+        width: 48px;
+        height: 48px;
+        margin-right: 12px;
+      }
+    }
+  }
+
+  .comparative {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+
+    .chart {
+      flex: 1;
+      margin-right: 16px;
+
+      &:last-child {
+        margin-right: 0px;
+      }
+    }
+  }
+
 }
 
 .bg {

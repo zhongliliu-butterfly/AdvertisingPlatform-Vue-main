@@ -115,28 +115,6 @@ function getChart() {
           { value: 123, name: '缝制' },
           { value: 84, name: '其他' }
         ],
-        itemStyle: {
-          // borderRadius: 10,
-          // normal: {  
-          //   color: {
-          //     type: 'linear',
-          //     x: 0,
-          //     y: 0,
-          //     x2: 0,
-          //     y2: 1,
-          //     colorStops: [{
-          //       offset: 0, color: '#50A5FF' // 0% 处的颜色
-          //     }, {
-          //       offset: 1, color: '#0073EB' // 100% 处的颜色
-          //     }],
-          //     global: false // 缺省为 false
-          //   },
-          //   shadowColor: 'rgb(237, 245, 255, 0.8)', // 投影颜色  
-          //   shadowBlur: 2, // 投影模糊程度  
-          //   shadowOffsetX: 0, // 投影水平偏移  
-          //   shadowOffsetY: 0 // 投影垂直偏移  
-          // } 
-        }
       },
       {
         name: '条形图',
@@ -160,29 +138,6 @@ function getChart() {
           verticalAlign: 'bottom',
           color: '#111111'
         },
-        // itemStyle: {
-        //   color: '#5470C6', 
-        //   normal: {  
-        //     borderRadius: [0, 12, 12, 0],
-        //     color: {
-        //       type: 'linear',
-        //       x: 0,
-        //       y: 0,
-        //       x2: 1,
-        //       y2: 0,
-        //       colorStops: [{
-        //           offset: 0, color: '#50A5FF' // 0% 处的颜色
-        //       }, {
-        //           offset: 1, color: '#0073EB' // 100% 处的颜色
-        //       }],
-        //       global: false // 缺省为 false
-        //     },
-        //     shadowColor: 'rgb(237, 245, 255, 0.8)', // 投影颜色  
-        //     shadowBlur: 2, // 投影模糊程度  
-        //     shadowOffsetX: 0, // 投影水平偏移  
-        //     shadowOffsetY: 0 // 投影垂直偏移  
-        //   } 
-        // },
         barWidth: '5'
       },
     ],
