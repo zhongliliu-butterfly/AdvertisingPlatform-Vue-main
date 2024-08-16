@@ -109,7 +109,11 @@
             </div>
           </t-tab-panel>
           <t-tab-panel :value="2" label="好评分析">
-            <p style="margin: 20px">好评分析</p>
+            <div style="margin: 20px" class="comments_analysis">
+              <feedbackChart :adChart="{index: 1}" :shopDataTime="shopDataTime" />
+              <feedbackChart :adChart="{index: 2}" :shopDataTime="shopDataTime" />
+              <feedbackChart :adChart="{index: 3}" :shopDataTime="shopDataTime" />
+            </div>
           </t-tab-panel>
         </t-tabs>
       </div>
@@ -332,6 +336,7 @@ watch(country, (newVal) => {
   .btn {
     width: 120px;
     height: 40px;
+    cursor: pointer;
   }
 
   .view_voice {
