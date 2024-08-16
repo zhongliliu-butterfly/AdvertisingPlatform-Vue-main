@@ -57,7 +57,7 @@
       <img class="btn" :src="WebApp.getImage('products/follow_btn.png')" />
       <img class="btn view_voice" :src="WebApp.getImage('products/view_voices.png')" />
     </div>
-    <t-space>
+    <t-space class="top-nav">
       <t-radio-group class="tabs" v-model="curTabs" default-value="1">
         <t-radio-button value="1">重点问题跟进</t-radio-button>
         <t-radio-button value="2">客户反馈分析</t-radio-button>
@@ -339,13 +339,18 @@ watch(country, (newVal) => {
   }
 }
 
-:deep(.t-space) {
+:deep(.top-nav.t-space) {
   display: flex;
   justify-content: space-between;
 
-  .t-space-item:first-child {
-    flex: 1;
+  .t-space-item{
+    flex-shrink: 0;
+    &:first-child {
+      flex: 1;
+      min-width: 312px;
+    }
   }
+
 }
 
 :deep(.tabs .t-radio-button) {
@@ -514,8 +519,10 @@ watch(country, (newVal) => {
         color: #111111;
       }
     }
-    :deep(.t-tabs__bar) {
+    // :deep(.t-tabs__nav-item) {
       // width: 56px !important;
+    // }
+    :deep(.t-tabs__bar) {
       height: 1px;
       background-color: #003469;
     }

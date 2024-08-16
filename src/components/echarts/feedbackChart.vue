@@ -38,9 +38,19 @@ function getChart() {
   // 指定图表的配置项和数据
   var option = {
     title: {
-      text: '一级标签占比',
-      // subtext: '946 评价量',
-      // left: 'center'
+      text: '946',
+      subtext: '评价量',
+      left: '20%',
+      top: '42%',  
+      textStyle: {  
+        fontSize: 24,  
+        fontWeight: 'bold',  
+        color: '#111111'  
+      },  
+      subtextStyle: {  
+        fontSize: 12,  
+        color: '#aaa'  
+      } 
     },
     tooltip: {},
     series: [
@@ -56,7 +66,7 @@ function getChart() {
         },
         emphasis: {
           label: {
-            show: true,
+            show: false,
             fontSize: '30',
             fontWeight: 'bold'
           }
@@ -69,8 +79,30 @@ function getChart() {
         ],
         itemStyle: {
           borderRadius: 10,
-          borderColor: '#fff',
-          borderWidth: 2
+          // borderColor: '#fff',
+          // borderWidth: 2,
+          normal: {  
+            // borderRadius: [0, 12, 12, 0],
+            // borderWidth: 4,
+            // borderColor: '#edf5ff',
+            color: {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#50A5FF' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#0073EB' // 100% 处的颜色
+              }],
+              global: false // 缺省为 false
+            },
+            shadowColor: 'rgb(237, 245, 255, 0.8)', // 投影颜色  
+            shadowBlur: 2, // 投影模糊程度  
+            shadowOffsetX: 0, // 投影水平偏移  
+            shadowOffsetY: 0 // 投影垂直偏移  
+          } 
         }
       },
       {
@@ -82,18 +114,54 @@ function getChart() {
           { value: 123, name: '维制' },
           { value: 84, name: '其他' }
         ],
-        itemStyle: {
-          color: '#5470C6'
+        showBackground: true,
+        backgroundStyle: {
+          color: 'rgba(180, 180, 180, 0.2)'
         },
-        barWidth: '40%'
+        
+        label: {  
+          show: true,  
+          position: [0, -2], // 外部展示  
+          formatter: '{b}:{c}', // 显示名称和数值  
+          overflow: 'break',
+          verticalAlign: 'bottom'
+        },
+        itemStyle: {
+          color: '#5470C6', 
+          normal: {  
+            borderRadius: [0, 12, 12, 0],
+            // borderWidth: 4,
+            // borderColor: '#edf5ff',
+            color: {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#50A5FF' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#0073EB' // 100% 处的颜色
+              }],
+              global: false // 缺省为 false
+            },
+            shadowColor: 'rgb(237, 245, 255, 0.8)', // 投影颜色  
+            shadowBlur: 2, // 投影模糊程度  
+            shadowOffsetX: 0, // 投影水平偏移  
+            shadowOffsetY: 0 // 投影垂直偏移  
+          } 
+        },
+        barWidth: '8'
       },
     ],
     grid: // [
-      { left: '55%', right: '5%', top: '18%', height: '70%', containLabel: true  }, // 核心区域  
+      { left: '50%', right: '5%', top: '18%', height: '70%', containLabel: true  }, // 核心区域  
     // ],
     yAxis: {
       type: 'category',
-      data: ['版本', '面料', '维制', '其他'],
+      data: ['53%', '45%', '32%', '24%'],
+      position: 'right',
+      show: true,
       axisLabel: {
         interval: 0  // 防止标签重叠  
       },
